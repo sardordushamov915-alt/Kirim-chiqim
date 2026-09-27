@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>Kirim-Chiqim</title>
+<link rel="manifest" href="manifest.json">
+
+<style>
+:root{
+ --bg:#f4f6f8;
+ --card:#fff;
+ --text:#111827;
+ --muted:#6b7280;
+ --line:#e5e7eb;
+ --green:#16a34a;
+ --red:#dc2626;
+ --blue:#2563eb;
+ --shadow:0 8px 25px #0000000d;
+}
+
+*{
+ box-sizing:border-box;
+}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ padding-bottom:90px;
+}
+
+header{
+ background:#111827;
+ color:#fff;
+ padding:22px 18px 18px;
+ position:sticky;
+ top:0;
+ z-index:5;
+}
+
+header h1{
+ margin:0;
+ font-size:22px;
+}
+
+header small{
+ opacity:.7;
+}
+
+main{
+ max-width:760px;
+ margin:auto;
+ padding:16px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+}
+
+.card{
+ background:var(--card);
+ border-radius:16px;
+ padding:15px;
+ box-shadow:var(--shadow);
+ margin-bottom:12px;
+}
+
+.stat b{
+ display:block;
+ font-size:19px;
+ margin-top:6px;
+}
+
+.green{
+ color:var(--green);
+}
+
+.red{
+ color:var(--red);
+}
+
+.blue{
+ color:var(--blue);
+}
+
+label{
+ font-size:13px;
+ color:var(--muted);
+ display:block;
+ margin:10px 0 6px;
+}
+
+input,
+select{
+ width:100%;
+ padding:13px;
+ border:1px solid var(--line);
+ border-radius:12px;
+ background:#fff;
+ font-size:16px;
+}
+
+button{
+ border:0;
+ border-radius:12px;
+ padding:12px 15px;
+ font-size:15px;
+ font-weight:600;
+ cursor:pointer;
+}
+
+.primary{
+ background:#111827;
+ color:#fff;
+}
+
+.income{
+ background:#dcfce7;
+ color:#166534;
+}
+
+.expense{
+ background:#fee2e2;
+ color:#991b1b;
+}
+
+.ghost{
+ background:#f3f4f6;
+ color:#111827;
+}
+
+.danger{
+ background:#fee2e2;
+ color:#991b1b;
+}
+
+.actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+}
+
+.actions button{
+ flex:1;
+ min-width:110px;
+}
+
+.tabs{
+ display:flex;
+ gap:8px;
+ margin:10px 0;
+}
+
+.tabs button{
+ flex:1;
+ background:#e5e7eb;
+}
+
+.tabs button.active{
+ background:#111827;
+ color:white;
+}
+@media(max-width:500px){
+ .grid{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .grid .stat:first-child{
+  grid-column:1/-1;
+ }
+
+ .grid .stat:first-child b{
+  font-size:25px;
+ }
+
+ .row{
+  grid-template-columns:1fr;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>💰 Kirim-Chiqim</h1>
+<small>Shaxsiy xarajatlar nazorati</small>
+</header>
+
+<main>
+
+<section class="grid">
+
+<div class="card stat">
+<span>Balans</span>
+<b id="balance">0 so'm</b>
+</div>
+
+<div class="card stat">
+<span class="green">Kirim</span>
+<b class="green" id="incomeTotal">0</b>
+</div>
+
+<div class="card stat">
+<span class="red">Chiqim</span>
+<b class="red" id="expenseTotal">0</b>
+</div>
+
+</section>
+
+<div class="card">
+
+<div class="actions">
+
+<button class="income" onclick="openForm('income')">
+＋ Kirim
+</button>
+
+<button class="expense" onclick="openForm('expense')">
+－ Chiqim
+</button>
+
+</div>
+
+</div>
+
+<div class="tabs">
+
+<button id="tabHistory"
+class="active"
+onclick="showTab('history')">
+Tarix
+</button>
+
+<button id="tabReport"
+onclick="showTab('report')">
+Hisobot
+</button>
+
+</div>
+
+<section id="historyTab">
+
+<div class="card">
+
+<div class="row">
+
+<div>
+
+<label>Qidirish</label>
+
+<input
+id="search"
+placeholder="masalan: ovqat..."
+oninput="render()">
+
+</div>
+
+<div>
+
+<label>Tur</label>
+
+<select id="filterType" onchange="render()">
+
+<option value="all">
+Hammasi
+</option>
+
+<option value="income">
+Kirim
+</option>
+
+<option value="expense">
+Chiqim
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div id="list"></div>
+
+</div>
+
+</section>
+
+<section id="reportTab" style="display:none">
+
+<div class="card">
+
+<label>Hisobot davri</label>
+
+<select id="period" onchange="renderReport()">
+
+<option value="month">
+Shu oy
+</option>
+
+<option value="all">
+Barcha vaqt
+</option>
+
+</select>
+
+<div id="reportText"
+style="margin-top:12px">
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Chiqim kategoriyalari</h3>
+
+<div id="categoryReport"></div>
+
+</div>
+
+<div class="card">
+
+<h3>To'lov usullari</h3>
+
+<div id="paymentReport"></div>
+
+</div>
+
+</section>
+
+</main>
+<div class="modal" id="modal">
+
+<div class="sheet">
+
+<h2 id="formTitle">
+Kirim qo'shish
+</h2>
+
+<input type="hidden" id="editId">
+<input type="hidden" id="formType">
+
+<label>Summa</label>
+
+<input
+id="amount"
+type="number"
+inputmode="decimal"
+placeholder="100000">
+
+<label>Izoh</label>
+
+<input
+id="note"
+placeholder="Masalan: maosh, ovqat, yo'l...">
+
+<div class="row">
+
+<div>
+
+<label>Kategoriya</label>
+
+<select id="category">
+
+<option>Maosh</option>
+<option>Oziq-ovqat</option>
+<option>Transport</option>
+<option>Uy</option>
+<option>Kiyim</option>
+<option>Ko'ngilochar</option>
+<option>Sog'liq</option>
+<option>Ta'lim</option>
+<option>Boshqa</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>To'lov usuli</label>
+
+<select id="payment">
+
+<option>Naqd</option>
+<option>Uzcard</option>
+<option>Humo</option>
+<option>Visa</option>
+<option>Bank</option>
+
+</select>
+
+</div>
+
+</div>
+
+<label>Sana</label>
+
+<input
+id="date"
+type="date">
+
+<div class="actions" style="margin-top:15px">
+
+<button
+class="primary"
+onclick="saveTx()">
+Saqlash
+</button>
+
+<button
+class="ghost"
+onclick="closeForm()">
+Bekor qilish
+</button>
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+const KEY='kirimChiqimV2';
+
+let txs=JSON.parse(
+localStorage.getItem(KEY)||'[]'
+);
+
+const money=n=>
+new Intl.NumberFormat('uz-UZ')
+.format(Math.round(n))
++" so'm";
+
+function save(){
+
+localStorage.setItem(
+KEY,
+JSON.stringify(txs)
+);
+
+}
+
+function today(){
+
+return new Date()
+.toISOString()
+.slice(0,10);
+
+}
+
+function openForm(type,id=null){
+
+document
+.getElementById('modal')
+.classList.add('show');
+
+document
+.getElementById('formType')
+.value=type;
+
+document
+.getElementById('editId')
+.value=id||'';
+
+document
+.getElementById('formTitle')
+.textContent=
+id
+?'Tahrirlash'
+:(type==='income'
+?'Kirim qo\'shish'
+:'Chiqim qo\'shish');
+
+if(id){
+
+const t=txs.find(x=>x.id===id);
+
+if(!t)return;
+
+amount.value=t.amount;
+note.value=t.note;
+category.value=t.category;
+payment.value=t.payment;
+date.value=t.date;
+
+}else{
+
+amount.value='';
+note.value='';
+
+category.value=
+type==='income'
+?'Maosh'
+:'Oziq-ovqat';
+
+payment.value='Naqd';
+date.value=today();
+
+}
+
+}
+
+function closeForm(){
+
+document
+.getElementById('modal')
+.classList
+.remove('show');
+
+}
+
+function saveTx(){
+
+const a=Number(amount.value);
+
+if(!a||a<=0){
+
+alert('Summani kiriting');
+
+return;
+
+}
+
+const type=formType.value;
+const id=editId.value;
+
+const obj={
+
+id:id||Date.now().toString(),
+type:type,
+amount:a,
+note:note.value.trim()||'Izohsiz',
+category:category.value,
+payment:payment.value,
+date:date.value||today()
+
+};
+
+if(id){
+
+const i=txs.findIndex(x=>x.id===id);
+
+txs[i]=obj;
+
+}else{
+
+txs.unshift(obj);
+
+}
+
+save();
+closeForm();
+render();
+renderReport();
+
+}
+
+function del(id){
+
+if(confirm('Bu yozuvni o‘chirasizmi?')){
+
+txs=txs.filter(x=>x.id!==id);
+
+save();
+render();
+renderReport();
+
+}
+
+}
+
+function edit(id){
+
+const t=txs.find(x=>x.id===id);
+
+openForm(t.type,id);
+
+}
+
+function render(){
+
+let inc=txs
+.filter(x=>x.type==='income')
+.reduce((s,x)=>s+x.amount,0);
+
+let exp=txs
+.filter(x=>x.type==='expense')
+.reduce((s,x)=>s+x.amount,0);
+
+balance.textContent=money(inc-exp);
+
+incomeTotal.textContent=money(inc);
+
+expenseTotal.textContent=money(exp);
+
+const q=search.value.toLowerCase();
+
+const f=filterType.value;
+
+const arr=txs.filter(x=>
+(f==='all'||x.type===f)&&
+(`${x.note} ${x.category} ${x.payment}`
+.toLowerCase().includes(q))
+);
+
+list.innerHTML=arr.length?
+
+arr.map(x=>`
+
+<div class="tx">
+
+<div>
+
+<div class="title">
+${x.note}
+</div>
+
+<small>
+${x.date} ·
+${x.category} ·
+${x.payment}
+</small>
+
+</div>
+
+<div style="text-align:right">
+
+<div class="amt ${x.type==='income'?'green':'red'}">
+
+${x.type==='income'?'+':'-'}
+${money(x.amount)}
+
+</div>
+
+<div class="actions">
+
+<button
+class="ghost"
+onclick="edit('${x.id}')">
+Tahrir
+</button>
+
+<button
+class="danger"
+onclick="del('${x.id}')">
+O'chir
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`).join('')
+
+:
+
+'<div class="empty">Hozircha yozuv yo‘q.</div>';
+
+}
+
+function showTab(t){
+
+historyTab.style.display=
+t==='history'?'block':'none';
+
+reportTab.style.display=
+t==='report'?'block':'none';
+
+tabHistory.classList.toggle(
+'active',
+t==='history'
+);
+
+tabReport.classList.toggle(
+'active',
+t==='report'
+);
+
+if(t==='report')
+renderReport();
+
+}
+function renderReport(){
+
+const p=period.value;
+
+const now=new Date();
+
+const filtered=txs.filter(x=>{
+
+if(p==='all') return true;
+
+const d=new Date(x.date+'T12:00:00');
+
+return d.getMonth()===now.getMonth() &&
+       d.getFullYear()===now.getFullYear();
+
+});
+
+const inc=filtered
+.filter(x=>x.type==='income')
+.reduce((s,x)=>s+x.amount,0);
+
+const exp=filtered
+.filter(x=>x.type==='expense')
+.reduce((s,x)=>s+x.amount,0);
+
+reportText.innerHTML=`
+
+<b>Kirim:</b>
+
+<span class="green">
+${money(inc)}
+</span>
+
+<br>
+
+<b>Chiqim:</b>
+
+<span class="red">
+${money(exp)}
+</span>
+
+<br>
+
+<b>Qoldiq:</b>
+${money(inc-exp)}
+
+`;
+
+const cats={};
+
+filtered
+.filter(x=>x.type==='expense')
+.forEach(x=>{
+
+cats[x.category]=
+(cats[x.category]||0)+x.amount;
+
+});
+
+const max=Math.max(
+1,
+...Object.values(cats)
+);
+
+categoryReport.innerHTML=
+
+Object.entries(cats)
+.sort((a,b)=>b[1]-a[1])
+.map(([k,v])=>`
+
+<div style="margin:12px 0">
+
+<div style="
+display:flex;
+justify-content:space-between">
+
+<span>${k}</span>
+
+<b>${money(v)}</b>
+
+</div>
+
+<div class="bar">
+
+<i style="
+width:${v/max*100}%">
+</i>
+
+</div>
+
+</div>
+
+`).join('')
+
+||
+
+'<div class="empty">
+Chiqim ma’lumoti yo‘q.
+</div>';
+
+const pays={};
+
+filtered.forEach(x=>{
+
+pays[x.payment]=
+(pays[x.payment]||0)+
+(x.type==='income'
+?x.amount
+:-x.amount);
+
+});
+
+paymentReport.innerHTML=
+
+Object.entries(pays)
+.map(([k,v])=>`
+
+<div class="tx">
+
+<span>${k}</span>
+
+<b class="${v>=0?'green':'red'}">
+${money(v)}
+</b>
+
+</div>
+
+`).join('')
+
+||
+
+'<div class="empty">
+Ma’lumot yo‘q.
+</div>';
+
+}
+
+render();
+
+renderReport();
+
+</script>
+</body>
+</html>
