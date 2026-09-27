@@ -2,79 +2,78 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080c18">
-<title>Kirim-Chiqim V6.2</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kirim-Chiqim V6.3</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg:#080c18;
-  --card:#11172a;
-  --card2:#181f35;
-  --border:#27304a;
-  --text:#ffffff;
-  --muted:#8c94aa;
-  --purple:#806cff;
-  --purple2:#9b8cff;
-  --green:#35e58c;
-  --red:#ff6077;
-  --blue:#35c9ff;
+  --bg:#f4f6fb;
+  --card:#fff;
+  --text:#17202a;
+  --muted:#7b8490;
+  --primary:#2563eb;
+  --green:#16a34a;
+  --red:#dc2626;
+  --border:#e5e7eb;
+  --soft:#eef2ff;
 }
 
 body{
+  font-family:Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
-  min-height:100vh;
+  padding-bottom:90px;
+  transition:.2s;
 }
 
-.app{
-  width:100%;
-  max-width:520px;
-  margin:auto;
-  min-height:100vh;
-  padding-bottom:90px;
+body.light{
+  --bg:#f4f6fb;
+  --card:#fff;
+  --text:#17202a;
+  --muted:#7b8490;
+}
+
+body.dark{
+  --bg:#10151c;
+  --card:#1a212b;
+  --text:#fff;
+  --muted:#9ca3af;
+  --border:#303946;
+  --soft:#252e3b;
+}
+
+button,input,select{
+  font-family:inherit;
 }
 
 button{
-  font-family:inherit;
+  border:0;
   cursor:pointer;
 }
 
+.container{
+  max-width:720px;
+  margin:auto;
+  padding:18px;
+}
+
 header{
-  padding:22px 18px 12px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  color:white;
+  padding:23px 18px;
+  border-radius:0 0 26px 26px;
+  background:linear-gradient(135deg,#111827,#26364e);
 }
 
 .header-title{
-  font-size:25px;
+  font-size:24px;
   font-weight:800;
 }
 
 .header-sub{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.avatar{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#806cff,#35c9ff);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-weight:800;
-  font-size:18px;
+  margin-top:5px;
+  opacity:.7;
 }
 
 .page{
@@ -85,856 +84,683 @@ header{
   display:block;
 }
 
-/* BALANCE */
-
-.balance-card{
-  margin:10px 16px 16px;
-  padding:23px;
-  border-radius:25px;
-  background:linear-gradient(135deg,#806cff,#5545d8);
-  box-shadow:0 18px 40px rgba(83,69,216,.25);
-}
-
-.balance-label{
-  opacity:.78;
-  font-size:13px;
-}
-
 .balance{
+  margin-top:15px;
+  padding:24px;
+  border-radius:23px;
+  color:white;
+  background:linear-gradient(135deg,#2563eb,#4f46e5);
+  box-shadow:0 12px 30px #2563eb33;
+}
+
+.balance small{
+  opacity:.8;
+}
+
+.balance h1{
+  margin-top:8px;
   font-size:31px;
-  font-weight:800;
-  margin:7px 0 18px;
 }
 
-.balance span{
-  font-size:14px;
-  font-weight:500;
-}
-
-.balance-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.stat{
-  background:rgba(255,255,255,.12);
-  border-radius:15px;
-  padding:12px;
-}
-
-.stat small{
-  display:block;
-  font-size:11px;
-  opacity:.75;
-  margin-bottom:5px;
-}
-
-.stat strong{
-  font-size:14px;
-}
-
-.income-text{
-  color:var(--green);
-}
-
-.expense-text{
-  color:var(--red);
-}
-
-/* QUICK */
-
-.quick{
+.cards{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
-  margin:16px;
+  margin-top:15px;
 }
 
-.quick button{
-  border:0;
-  padding:16px;
-  border-radius:17px;
-  font-size:15px;
-  font-weight:800;
+.card{
+  background:var(--card);
+  padding:17px;
+  border-radius:18px;
+  box-shadow:0 5px 20px #0000000b;
 }
 
-.income-btn{
-  background:#173e2d;
-  color:var(--green);
+.card small{
+  color:var(--muted);
 }
 
-.expense-btn{
-  background:#451d27;
-  color:var(--red);
+.card strong{
+  display:block;
+  margin-top:8px;
+  font-size:19px;
 }
 
-/* SECTION */
-
-.section{
-  margin-top:22px;
-  padding:0 16px;
+.income{
+  color:var(--green)!important;
 }
 
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
+.expense{
+  color:var(--red)!important;
 }
 
 .section-title{
-  font-size:18px;
+  font-size:19px;
   font-weight:800;
-}
-
-.section-link{
-  color:var(--purple2);
-  font-size:13px;
-  cursor:pointer;
-}
-
-/* WALLETS */
-
-.wallets{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+  margin:25px 0 12px;
 }
 
 .wallet{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:16px;
-}
-
-.wallet-icon{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  background:var(--card2);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:21px;
-  margin-bottom:12px;
-}
-
-.wallet-name{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.wallet-money{
-  font-size:18px;
-  font-weight:800;
-  margin-top:5px;
-}
-
-/* TRANSACTIONS */
-
-.transactions{
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-}
-
-.transaction{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:13px;
   display:flex;
   align-items:center;
   gap:12px;
+  padding:15px;
+  background:var(--card);
+  border-radius:17px;
+  margin-bottom:10px;
 }
 
-.tx-icon{
-  width:43px;
-  height:43px;
+.wallet-icon{
+  width:46px;
+  height:46px;
   border-radius:14px;
-  background:var(--card2);
+  background:var(--soft);
   display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:21px;
-  flex-shrink:0;
+  justify-content:center;
+  font-size:23px;
 }
 
-.tx-info{
+.wallet-main{
+  flex:1;
+}
+
+.wallet-main strong{
+  display:block;
+}
+
+.wallet-main small{
+  color:var(--muted);
+}
+
+.transaction{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:17px;
+  background:var(--card);
+}
+
+.icon{
+  width:46px;
+  height:46px;
+  flex-shrink:0;
+  border-radius:14px;
+  background:var(--soft);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+}
+
+.transaction-main{
   flex:1;
   min-width:0;
 }
 
-.tx-info strong{
+.transaction-main strong{
   display:block;
-  font-size:14px;
-  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-}
-
-.tx-info small{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
-}
-
-.tx-amount{
-  font-size:13px;
-  font-weight:800;
   white-space:nowrap;
 }
 
-.plus{
-  color:var(--green);
-}
-
-.minus{
-  color:var(--red);
-}
-
-.empty{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:30px 15px;
-  text-align:center;
+.transaction-main small{
   color:var(--muted);
+  line-height:1.5;
 }
 
-/* REPORT */
-
-.report-header-card{
-  margin:10px 16px 16px;
-  padding:20px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#191f38,#11172a);
-  border:1px solid var(--border);
+.add-btn{
+  position:fixed;
+  right:20px;
+  bottom:82px;
+  width:61px;
+  height:61px;
+  border-radius:50%;
+  color:white;
+  background:var(--primary);
+  font-size:30px;
+  box-shadow:0 10px 28px #2563eb55;
+  z-index:20;
 }
 
-.report-header-card small{
-  color:var(--muted);
-}
-
-.report-header-card strong{
-  display:block;
-  font-size:27px;
-  margin-top:6px;
-}
-
-.report-cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin:16px;
-}
-
-.report-card{
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:72px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
   background:var(--card);
-  border:1px solid var(--border);
-  border-radius:19px;
-  padding:16px;
+  box-shadow:0 -5px 20px #00000012;
+  z-index:15;
 }
 
-.report-card small{
+.nav-btn{
+  background:transparent;
   color:var(--muted);
   font-size:11px;
 }
 
-.report-card strong{
+.nav-btn span{
   display:block;
-  font-size:18px;
-  margin-top:7px;
+  font-size:22px;
+  margin-bottom:3px;
+}
+
+.nav-btn.active{
+  color:var(--primary);
+}
+
+.period-tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  padding:5px;
+  background:var(--soft);
+  border-radius:16px;
+}
+
+.period-tabs button{
+  padding:12px 4px;
+  border-radius:11px;
+  background:transparent;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.period-tabs button.active{
+  background:var(--primary);
+  color:white;
+}
+
+.report-main{
+  margin-top:15px;
+  padding:20px;
+  color:white;
+  border-radius:21px;
+  background:linear-gradient(135deg,#172033,#34445d);
+}
+
+.report-main small{
+  opacity:.75;
+}
+
+.report-main h2{
+  margin-top:8px;
+  font-size:27px;
+}
+
+.report-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
 }
 
 .chart-box{
-  margin:16px;
   background:var(--card);
-  border:1px solid var(--border);
-  border-radius:21px;
-  padding:17px;
+  padding:18px;
+  border-radius:20px;
+  margin-top:15px;
 }
 
-.chart-title{
-  font-size:16px;
-  font-weight:800;
-  margin-bottom:17px;
-}
-
-.category-report{
-  display:flex;
-  align-items:center;
-  gap:12px;
+.chart-box h3{
   margin-bottom:15px;
 }
 
-.category-icon{
-  width:43px;
-  height:43px;
-  border-radius:14px;
-  background:var(--card2);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:21px;
-  flex-shrink:0;
+.bar-row{
+  margin:14px 0;
 }
 
-.category-main{
-  flex:1;
-}
-
-.category-top{
+.bar-top{
   display:flex;
   justify-content:space-between;
-  margin-bottom:6px;
-  font-size:12px;
+  gap:8px;
+  font-size:13px;
+  margin-bottom:7px;
 }
 
-.category-bar-bg{
-  width:100%;
-  height:8px;
-  background:#272d42;
+.bar{
+  height:10px;
+  background:var(--border);
   border-radius:10px;
   overflow:hidden;
 }
 
-.category-bar{
+.bar-fill{
   height:100%;
+  background:var(--primary);
   border-radius:10px;
-  background:linear-gradient(90deg,#806cff,#35c9ff);
 }
 
-/* SEARCH */
-
-.search{
-  margin:16px;
+.period-summary{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:15px;
 }
 
-.search input{
-  width:100%;
-  border:1px solid var(--border);
+.mini-stat{
   background:var(--card);
-  color:var(--text);
-  padding:14px 16px;
-  border-radius:15px;
-  outline:none;
-  font-size:14px;
+  border-radius:17px;
+  padding:15px;
 }
 
-/* SETTINGS */
+.mini-stat small{
+  color:var(--muted);
+}
 
-.settings-list{
-  margin:16px;
+.mini-stat strong{
+  display:block;
+  margin-top:6px;
+}
+
+.day-chart{
+  display:flex;
+  align-items:flex-end;
+  gap:6px;
+  height:190px;
+  overflow-x:auto;
+  padding-top:15px;
+}
+
+.day-column{
+  min-width:35px;
+  height:165px;
   display:flex;
   flex-direction:column;
-  gap:11px;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+.day-column-value{
+  font-size:8px;
+  color:var(--muted);
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  margin-bottom:4px;
+}
+
+.day-column-bar{
+  width:22px;
+  min-height:3px;
+  border-radius:7px 7px 2px 2px;
+  background:var(--primary);
+}
+
+.day-column-label{
+  margin-top:6px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.search{
+  width:100%;
+  border:0;
+  outline:0;
+  padding:14px;
+  border-radius:15px;
+  background:var(--card);
+  color:var(--text);
+  margin-bottom:15px;
 }
 
 .setting{
   background:var(--card);
-  border:1px solid var(--border);
-  border-radius:19px;
   padding:17px;
+  border-radius:17px;
+  margin-bottom:10px;
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  align-items:center;
-  gap:12px;
+  gap:10px;
 }
 
-.setting-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.setting-icon{
-  width:43px;
-  height:43px;
-  border-radius:14px;
-  background:var(--card2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-.setting-info strong{
+.setting small{
   display:block;
-  font-size:14px;
-}
-
-.setting-info small{
-  display:block;
+  margin-top:5px;
   color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
 }
 
 .setting button{
-  border:0;
-  background:var(--purple);
-  color:white;
-  padding:9px 13px;
+  padding:10px 14px;
   border-radius:10px;
-  font-weight:700;
-}
-
-.danger{
-  background:#431d26!important;
-  color:#ff8798!important;
-}
-
-/* NAV */
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:520px;
-  height:72px;
-  background:rgba(12,17,31,.97);
-  backdrop-filter:blur(18px);
-  border-top:1px solid var(--border);
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  z-index:100;
-}
-
-.nav-btn{
-  border:0;
-  background:none;
-  color:var(--muted);
-  font-size:11px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:5px;
-}
-
-.nav-btn span{
-  font-size:20px;
-}
-
-.nav-btn.active{
+  background:var(--primary);
   color:white;
 }
 
-.add-nav{
-  color:var(--purple2)!important;
+.setting .danger{
+  background:var(--red);
 }
 
-/* MODAL */
-
-.modal{
+.modal-bg{
+  display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.68);
-  display:none;
+  z-index:50;
+  background:#0009;
   align-items:flex-end;
-  justify-content:center;
-  z-index:200;
 }
 
-.modal.show{
+.modal-bg.show{
   display:flex;
 }
 
-.modal-box{
+.modal{
   width:100%;
-  max-width:520px;
-  background:#11172a;
-  border-radius:28px 28px 0 0;
-  padding:22px 18px 30px;
-  border-top:1px solid var(--border);
+  max-width:720px;
+  margin:auto;
+  background:var(--card);
+  color:var(--text);
+  padding:22px;
+  border-radius:25px 25px 0 0;
 }
 
-.modal-head{
+.type-tabs{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
+  gap:10px;
+  margin:15px 0;
 }
 
-.modal-head h2{
-  font-size:20px;
+.type-tabs button{
+  flex:1;
+  padding:13px;
+  border-radius:12px;
+  background:var(--soft);
+  color:var(--text);
 }
 
-.close{
-  width:35px;
-  height:35px;
-  border:0;
-  border-radius:50%;
-  background:var(--card2);
+.type-tabs button.active{
+  background:var(--primary);
   color:white;
-  font-size:20px;
 }
 
-.field{
-  margin-bottom:12px;
-}
-
-.field label{
-  display:block;
-  color:var(--muted);
-  font-size:12px;
-  margin-bottom:6px;
-}
-
-.field input,
-.field select{
+input,select{
   width:100%;
-  background:#0b1020;
-  color:white;
-  border:1px solid var(--border);
   padding:14px;
-  border-radius:14px;
-  outline:none;
+  margin-bottom:12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  outline:0;
+  background:var(--card);
+  color:var(--text);
+}
+
+.save-btn,
+.close-btn{
+  width:100%;
+  padding:15px;
+  border-radius:13px;
+  font-size:15px;
 }
 
 .save-btn{
-  width:100%;
-  border:0;
-  background:var(--purple);
+  background:var(--primary);
   color:white;
-  padding:15px;
-  border-radius:15px;
-  font-size:16px;
-  font-weight:800;
 }
 
-/* TOAST */
+.close-btn{
+  margin-top:8px;
+  background:var(--border);
+  color:var(--text);
+}
+
+.delete-btn{
+  padding:7px 9px;
+  border-radius:8px;
+  background:#fee2e2;
+  color:var(--red);
+}
+
+.empty{
+  text-align:center;
+  padding:30px 10px;
+  color:var(--muted);
+}
 
 .toast{
   position:fixed;
   left:50%;
-  bottom:88px;
-  transform:translateX(-50%) translateY(20px);
-  background:#222a40;
+  bottom:95px;
+  transform:translateX(-50%);
+  padding:13px 20px;
   color:white;
-  padding:12px 18px;
+  background:#111827;
   border-radius:13px;
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-  z-index:300;
-  font-size:13px;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-/* LIGHT */
-
-body.light{
-  --bg:#f1f3f8;
-  --card:#ffffff;
-  --card2:#eef1f7;
-  --border:#dfe3ed;
-  --text:#111827;
-  --muted:#687083;
-}
-
-body.light .bottom-nav{
-  background:rgba(255,255,255,.96);
-}
-
-body.light .modal-box{
-  background:#ffffff;
-}
-
-body.light .field input,
-body.light .field select{
-  background:#f5f6fa;
-  color:#111827;
+  display:none;
+  z-index:100;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<header>
+  <div class="container" style="padding:0">
+    <div class="header-title">💰 Kirim-Chiqim</div>
+    <div class="header-sub">Moliyangizni professional boshqaring</div>
+  </div>
+</header>
 
-<!-- HOME -->
+<div class="container">
+
+<!-- ================= HOME ================= -->
 
 <section id="homePage" class="page active">
 
-<header>
-  <div>
-    <div class="header-title">Kirim-Chiqim</div>
-    <div class="header-sub">Moliyangiz nazorat ostida</div>
+  <div class="balance">
+    <small>Umumiy balans</small>
+    <h1 id="balance">0 so'm</h1>
   </div>
 
-  <div class="avatar">S</div>
-</header>
+  <div class="cards">
 
-<div class="balance-card">
-
-  <div class="balance-label">Umumiy balans</div>
-
-  <div class="balance" id="balance">
-    0 <span>so'm</span>
-  </div>
-
-  <div class="balance-row">
-
-    <div class="stat">
-      <small>Jami kirim</small>
-      <strong class="income-text" id="income">0 so'm</strong>
+    <div class="card">
+      <small>💚 Jami kirim</small>
+      <strong class="income" id="totalIncome">
+        0 so'm
+      </strong>
     </div>
 
-    <div class="stat">
-      <small>Jami chiqim</small>
-      <strong class="expense-text" id="expense">0 so'm</strong>
+    <div class="card">
+      <small>❤️ Jami chiqim</small>
+      <strong class="expense" id="totalExpense">
+        0 so'm
+      </strong>
     </div>
 
   </div>
 
-</div>
-
-<div class="quick">
-
-  <button class="income-btn" onclick="openModal('income')">
-    ＋ Kirim
-  </button>
-
-  <button class="expense-btn" onclick="openModal('expense')">
-    − Chiqim
-  </button>
-
-</div>
-
-<div class="section">
-
-  <div class="section-head">
-    <div class="section-title">Hamyonlar</div>
+  <div class="section-title">
+    💳 Hamyonlar
   </div>
 
-  <div class="wallets">
+  <div id="homeWallets"></div>
 
-    <div class="wallet">
-      <div class="wallet-icon">💵</div>
-      <div class="wallet-name">Naqd pul</div>
-      <div class="wallet-money" id="walletCash">0 so'm</div>
-    </div>
-
-    <div class="wallet">
-      <div class="wallet-icon">💳</div>
-      <div class="wallet-name">Uzcard</div>
-      <div class="wallet-money" id="walletUzcard">0 so'm</div>
-    </div>
-
-    <div class="wallet">
-      <div class="wallet-icon">💳</div>
-      <div class="wallet-name">Humo</div>
-      <div class="wallet-money" id="walletHumo">0 so'm</div>
-    </div>
-
-    <div class="wallet">
-      <div class="wallet-icon">🏦</div>
-      <div class="wallet-name">Bank</div>
-      <div class="wallet-money" id="walletBank">0 so'm</div>
-    </div>
-
+  <div class="section-title">
+    🧾 So‘nggi operatsiyalar
   </div>
 
-</div>
-
-<div class="section">
-
-  <div class="section-head">
-
-    <div class="section-title">
-      So‘nggi operatsiyalar
-    </div>
-
-    <div class="section-link" onclick="navigate('all')">
-      Barchasi
-    </div>
-
-  </div>
-
-  <div class="transactions" id="recentTransactions"></div>
-
-</div>
+  <div id="recentTransactions"></div>
 
 </section>
 
 
-<!-- REPORT -->
+<!-- ================= REPORT ================= -->
 
 <section id="reportPage" class="page">
 
-<header>
-
-  <div>
-    <div class="header-title">Hisobot</div>
-    <div class="header-sub">Moliyangiz tahlili</div>
+  <div class="section-title">
+    📊 Moliyaviy hisobot
   </div>
 
-</header>
+  <div class="period-tabs">
 
-<div class="report-header-card">
+    <button
+      id="periodDay"
+      onclick="setReportPeriod('day')">
+      1 kun
+    </button>
 
-  <small>Joriy balans</small>
+    <button
+      id="periodWeek"
+      onclick="setReportPeriod('week')">
+      1 hafta
+    </button>
 
-  <strong id="reportBalance">
-    0 so'm
-  </strong>
+    <button
+      id="periodMonth"
+      onclick="setReportPeriod('month')">
+      1 oy
+    </button>
 
-</div>
+    <button
+      id="periodYear"
+      onclick="setReportPeriod('year')">
+      1 yil
+    </button>
 
-<div class="report-cards">
+  </div>
 
-  <div class="report-card">
 
-    <small>Jami kirim</small>
+  <div class="report-main">
 
-    <strong
-      class="income-text"
-      id="reportIncome">
+    <small id="reportPeriodTitle">
+      Bugungi hisobot
+    </small>
+
+    <h2 id="reportBalance">
       0 so'm
-    </strong>
+    </h2>
 
   </div>
 
-  <div class="report-card">
 
-    <small>Jami chiqim</small>
+  <div class="report-grid">
 
-    <strong
-      class="expense-text"
-      id="reportExpense">
-      0 so'm
-    </strong>
+    <div class="card">
+      <small>💚 Kirim</small>
+      <strong
+        id="reportIncome"
+        class="income">
+        0 so'm
+      </strong>
+    </div>
+
+    <div class="card">
+      <small>❤️ Chiqim</small>
+      <strong
+        id="reportExpense"
+        class="expense">
+        0 so'm
+      </strong>
+    </div>
+
+    <div class="card">
+      <small>📅 Kunlik o‘rtacha chiqim</small>
+      <strong id="averageExpense">
+        0 so'm
+      </strong>
+    </div>
+
+    <div class="card">
+      <small>🧾 Operatsiyalar</small>
+      <strong id="reportCount">
+        0
+      </strong>
+    </div>
 
   </div>
 
-  <div class="report-card">
 
-    <small>Operatsiyalar</small>
+  <div class="chart-box">
 
-    <strong id="reportCount">
-      0
-    </strong>
+    <h3>
+      📈 Davr bo‘yicha xarajatlar
+    </h3>
 
-  </div>
-
-  <div class="report-card">
-
-    <small>O‘rtacha chiqim</small>
-
-    <strong id="reportAverage">
-      0 so'm
-    </strong>
+    <div id="dayExpenseChart" class="day-chart"></div>
 
   </div>
 
-</div>
 
+  <div class="chart-box">
 
-<div class="chart-box">
+    <h3>
+      🏷 Kategoriyalar bo‘yicha xarajat
+    </h3>
 
-  <div class="chart-title">
-    📊 Kategoriyalar bo‘yicha chiqim
+    <div id="categoryChart"></div>
+
   </div>
 
-  <div id="categoryChart"></div>
 
-</div>
+  <div class="chart-box">
 
+    <h3>
+      💳 To‘lov turi bo‘yicha xarajat
+    </h3>
 
-<div class="chart-box">
+    <div id="paymentChart"></div>
 
-  <div class="chart-title">
-    💳 Hamyonlar bo‘yicha balans
   </div>
 
-  <div id="paymentChart"></div>
 
-</div>
+  <div class="chart-box">
+
+    <h3>
+      💰 Davr bo‘yicha hamyon harakati
+    </h3>
+
+    <div id="walletChart"></div>
+
+  </div>
 
 </section>
 
 
-<!-- ALL -->
+<!-- ================= ALL TRANSACTIONS ================= -->
 
 <section id="allPage" class="page">
 
-<header>
-
-  <div>
-    <div class="header-title">Operatsiyalar</div>
-    <div class="header-sub">Barcha kirim va chiqimlar</div>
+  <div class="section-title">
+    📋 Barcha operatsiyalar
   </div>
-
-</header>
-
-<div class="search">
 
   <input
     id="searchInput"
-    type="text"
-    placeholder="🔎 Qidirish..."
+    class="search"
+    placeholder="🔎 Izlash..."
     oninput="renderAllTransactions()"
   >
 
-</div>
-
-<div class="section">
-
-  <div
-    class="transactions"
-    id="allTransactions">
-  </div>
-
-</div>
+  <div id="allTransactions"></div>
 
 </section>
 
 
-<!-- SETTINGS -->
+<!-- ================= SETTINGS ================= -->
 
 <section id="settingsPage" class="page">
 
-<header>
-
-  <div>
-    <div class="header-title">Sozlamalar</div>
-    <div class="header-sub">Ilovani boshqarish</div>
+  <div class="section-title">
+    ⚙️ Sozlamalar
   </div>
 
-</header>
-
-
-<div class="settings-list">
 
   <div class="setting">
 
-    <div class="setting-left">
-
-      <div class="setting-icon">
-        🌙
-      </div>
-
-      <div class="setting-info">
-
-        <strong>Tungi / Yorug‘ rejim</strong>
-
-        <small>
-          Ilova ko‘rinishini o‘zgartirish
-        </small>
-
-      </div>
-
+    <div>
+      <strong>🌙 Tungi rejim</strong>
+      <small>
+        Ilova ko‘rinishini o‘zgartirish
+      </small>
     </div>
 
     <button onclick="toggleTheme()">
@@ -946,22 +772,11 @@ body.light .field select{
 
   <div class="setting">
 
-    <div class="setting-left">
-
-      <div class="setting-icon">
-        💾
-      </div>
-
-      <div class="setting-info">
-
-        <strong>Backup</strong>
-
-        <small>
-          Barcha ma'lumotlarni faylga saqlash
-        </small>
-
-      </div>
-
+    <div>
+      <strong>💾 Backup</strong>
+      <small>
+        Barcha ma'lumotlarni faylga saqlash
+      </small>
     </div>
 
     <button onclick="backupData()">
@@ -973,49 +788,37 @@ body.light .field select{
 
   <div class="setting">
 
-    <div class="setting-left">
-
-      <div class="setting-icon">
-        📥
-      </div>
-
-      <div class="setting-info">
-
-        <strong>Restore</strong>
-
-        <small>
-          Oldingi backupni tiklash
-        </small>
-
-      </div>
-
+    <div>
+      <strong>📂 Restore</strong>
+      <small>
+        Backup fayldan ma'lumotlarni qaytarish
+      </small>
     </div>
 
-    <button onclick="document.getElementById('restoreFile').click()">
+    <button
+      onclick="document.getElementById('restoreInput').click()">
       Tiklash
     </button>
 
   </div>
 
 
+  <input
+    id="restoreInput"
+    type="file"
+    accept=".json"
+    style="display:none"
+    onchange="restoreData(event)"
+  >
+
+
   <div class="setting">
 
-    <div class="setting-left">
-
-      <div class="setting-icon">
-        🗑
-      </div>
-
-      <div class="setting-info">
-
-        <strong>Ma'lumotlarni tozalash</strong>
-
-        <small>
-          Barcha operatsiyalar o‘chiriladi
-        </small>
-
-      </div>
-
+    <div>
+      <strong>🗑 Ma'lumotlarni o‘chirish</strong>
+      <small>
+        Barcha operatsiyalar o‘chadi
+      </small>
     </div>
 
     <button
@@ -1026,192 +829,145 @@ body.light .field select{
 
   </div>
 
-</div>
-
-<input
-  type="file"
-  id="restoreFile"
-  accept=".json"
-  style="display:none"
-  onchange="restoreData(event)"
->
-
 </section>
 
+</div>
 
-<!-- NAVIGATION -->
+
+<!-- ================= ADD BUTTON ================= -->
+
+<button
+  class="add-btn"
+  onclick="openModal()">
+  +
+</button>
+
+
+<!-- ================= NAVIGATION ================= -->
 
 <nav class="bottom-nav">
 
   <button
     class="nav-btn active"
-    id="navHome"
-    onclick="navigate('home')">
-
+    onclick="navigate('home',this)">
     <span>🏠</span>
     Bosh sahifa
-
   </button>
-
-
-  <button
-    class="nav-btn add-nav"
-    onclick="openModal('expense')">
-
-    <span>➕</span>
-    Qo‘shish
-
-  </button>
-
 
   <button
     class="nav-btn"
-    id="navReport"
-    onclick="navigate('report')">
-
+    onclick="navigate('report',this)">
     <span>📊</span>
     Hisobot
-
   </button>
-
 
   <button
     class="nav-btn"
-    id="navSettings"
-    onclick="navigate('settings')">
+    onclick="navigate('all',this)">
+    <span>📋</span>
+    Operatsiyalar
+  </button>
 
+  <button
+    class="nav-btn"
+    onclick="navigate('settings',this)">
     <span>⚙️</span>
     Sozlamalar
-
   </button>
 
 </nav>
 
-</div>
+
+<!-- ================= MODAL ================= -->
+
+<div
+  id="modalBg"
+  class="modal-bg">
+
+  <div class="modal">
+
+    <h2>
+      ➕ Yangi operatsiya
+    </h2>
 
 
-<!-- MODAL -->
+    <div class="type-tabs">
 
-<div class="modal" id="modal">
+      <button
+        id="expenseTab"
+        class="active"
+        onclick="setType('expense')">
+        🔴 Chiqim
+      </button>
 
-<div class="modal-box">
+      <button
+        id="incomeTab"
+        onclick="setType('income')">
+        🟢 Kirim
+      </button>
 
-<div class="modal-head">
-
-  <h2 id="modalTitle">
-    Chiqim qo‘shish
-  </h2>
-
-  <button
-    class="close"
-    onclick="closeModal()">
-    ×
-  </button>
-
-</div>
+    </div>
 
 
-<div class="field">
-
-<label>Miqdor</label>
-
-<input
-  id="amount"
-  type="number"
-  inputmode="decimal"
-  placeholder="Masalan: 50000"
->
-
-</div>
+    <input
+      id="amount"
+      type="number"
+      placeholder="💰 Summa"
+    >
 
 
-<div class="field">
-
-<label>Izoh</label>
-
-<input
-  id="note"
-  type="text"
-  placeholder="Masalan: Ovqat"
->
-
-</div>
+    <input
+      id="note"
+      placeholder="📝 Izoh"
+    >
 
 
-<div class="field">
+    <select id="category">
 
-<label>Kategoriya</label>
+      <option>Oziq-ovqat</option>
+      <option>Transport</option>
+      <option>Uy</option>
+      <option>Kiyim</option>
+      <option>Sog‘liq</option>
+      <option>Ko‘ngilochar</option>
+      <option>Maosh</option>
+      <option>Savdo</option>
+      <option>Ta'lim</option>
+      <option>Kafe</option>
+      <option>Boshqa</option>
 
-<select id="category">
-
-<option value="Oziq-ovqat">🍔 Oziq-ovqat</option>
-
-<option value="Transport">🚗 Transport</option>
-
-<option value="Uy">🏠 Uy</option>
-
-<option value="Kiyim">👕 Kiyim</option>
-
-<option value="Sog‘liq">💊 Sog‘liq</option>
-
-<option value="Ko‘ngilochar">🎮 Ko‘ngilochar</option>
-
-<option value="Maosh">💼 Maosh</option>
-
-<option value="Savdo">🛍 Savdo</option>
-
-<option value="Ta'lim">📚 Ta'lim</option>
-
-<option value="Kafe">☕ Kafe</option>
-
-<option value="Boshqa">📦 Boshqa</option>
-
-</select>
-
-</div>
+    </select>
 
 
-<div class="field">
+    <select id="payment">
 
-<label>Hamyon / To‘lov turi</label>
+      <option>Naqd pul</option>
+      <option>Uzcard</option>
+      <option>Humo</option>
+      <option>Bank</option>
 
-<select id="payment">
+    </select>
 
-<option value="Naqd pul">
-💵 Naqd pul
-</option>
 
-<option value="Uzcard">
-💳 Uzcard
-</option>
+    <button
+      class="save-btn"
+      onclick="saveTransaction()">
+      Saqlash
+    </button>
 
-<option value="Humo">
-💳 Humo
-</option>
 
-<option value="Bank">
-🏦 Bank
-</option>
+    <button
+      class="close-btn"
+      onclick="closeModal()">
+      Bekor qilish
+    </button>
 
-</select>
+  </div>
 
 </div>
 
 
-<button
-  class="save-btn"
-  onclick="saveTransaction()">
-
-  Saqlash
-
-</button>
-
-</div>
-
-</div>
-
-
-<div class="toast" id="toast"></div>
+<div id="toast" class="toast"></div>
 
 
 <script>
@@ -1222,74 +978,71 @@ let transactions = [];
 
 let currentType = "expense";
 
+let reportPeriod = "day";
 
-/* KATEGORIYA RASMLARI */
+
+/* ================= ICONS ================= */
 
 const categoryIcons = {
 
   "Oziq-ovqat":"🍔",
-
   "Transport":"🚗",
-
   "Uy":"🏠",
-
   "Kiyim":"👕",
-
   "Sog‘liq":"💊",
-
   "Ko‘ngilochar":"🎮",
-
   "Maosh":"💼",
-
-  "Savdo":"🛍",
-
+  "Savdo":"🛍️",
   "Ta'lim":"📚",
-
   "Kafe":"☕",
-
   "Boshqa":"📦"
 
 };
 
 
-/* MONEY */
+const paymentIcons = {
+
+  "Naqd pul":"💵",
+  "Uzcard":"💳",
+  "Humo":"💳",
+  "Bank":"🏦"
+
+};
+
+
+/* ================= BASIC ================= */
 
 function money(value){
 
   return Number(value || 0)
-    .toLocaleString("uz-UZ") + " so'm";
+    .toLocaleString("uz-UZ")
+    + " so'm";
 
 }
 
-
-/* LOAD */
 
 function loadData(){
 
   try{
 
-    const saved =
+    const data =
       localStorage.getItem(STORAGE_KEY);
 
     transactions =
-      saved ? JSON.parse(saved) : [];
+      data ? JSON.parse(data) : [];
 
     if(!Array.isArray(transactions)){
-
-      transactions = [];
-
+      transactions=[];
     }
 
-  }catch(error){
+  }catch(e){
 
-    transactions = [];
+    transactions=[];
 
   }
 
 }
 
-
-/* SAVE */
 
 function saveData(){
 
@@ -1301,19 +1054,12 @@ function saveData(){
 }
 
 
-/* MODAL */
+/* ================= MODAL ================= */
 
-function openModal(type){
+function openModal(){
 
-  currentType = type;
-
-  document.getElementById("modalTitle")
-    .textContent =
-      type === "income"
-      ? "Kirim qo‘shish"
-      : "Chiqim qo‘shish";
-
-  document.getElementById("modal")
+  document
+    .getElementById("modalBg")
     .classList.add("show");
 
 }
@@ -1321,13 +1067,36 @@ function openModal(type){
 
 function closeModal(){
 
-  document.getElementById("modal")
+  document
+    .getElementById("modalBg")
     .classList.remove("show");
+
+  document.getElementById("amount").value="";
+  document.getElementById("note").value="";
 
 }
 
 
-/* ADD */
+function setType(type){
+
+  currentType=type;
+
+  document
+    .getElementById("expenseTab")
+    .classList.toggle(
+      "active",
+      type==="expense"
+    );
+
+  document
+    .getElementById("incomeTab")
+    .classList.toggle(
+      "active",
+      type==="income"
+    );
+
+}
+
 
 function saveTransaction(){
 
@@ -1337,7 +1106,10 @@ function saveTransaction(){
     );
 
   const note =
-    document.getElementById("note").value.trim();
+    document
+      .getElementById("note")
+      .value
+      .trim();
 
   const category =
     document.getElementById("category").value;
@@ -1346,9 +1118,9 @@ function saveTransaction(){
     document.getElementById("payment").value;
 
 
-  if(!amount || amount <= 0){
+  if(!amount || amount<=0){
 
-    alert("Miqdorni to‘g‘ri kiriting");
+    showToast("Summani kiriting");
 
     return;
 
@@ -1376,50 +1148,30 @@ function saveTransaction(){
 
   saveData();
 
-
-  document.getElementById("amount").value = "";
-
-  document.getElementById("note").value = "";
-
-
   closeModal();
 
   renderAll();
 
-
-  showToast(
-    currentType === "income"
-    ? "Kirim qo‘shildi ✓"
-    : "Chiqim qo‘shildi ✓"
-  );
+  showToast("Saqlandi ✅");
 
 }
 
 
-/* TOTAL */
+/* ================= TOTALS ================= */
 
-function getTotals(){
+function getTotals(list=transactions){
 
-  let income = 0;
-
-  let expense = 0;
-
-
-  transactions.forEach(t => {
-
-    const amount =
-      Number(t.amount) || 0;
+  let income=0;
+  let expense=0;
 
 
-    if(t.type === "income"){
+  list.forEach(t=>{
 
-      income += amount;
+    if(t.type==="income")
+      income += Number(t.amount);
 
-    }else{
-
-      expense += amount;
-
-    }
+    else
+      expense += Number(t.amount);
 
   });
 
@@ -1430,55 +1182,41 @@ function getTotals(){
 
     expense,
 
-    balance:income - expense
+    balance:income-expense
 
   };
 
 }
 
 
-/* WALLETS */
+/* ================= WALLETS ================= */
 
-function getWallets(){
+function getWallets(list=transactions){
 
-  const wallets = {
+  const wallets={
 
     "Naqd pul":0,
-
     "Uzcard":0,
-
     "Humo":0,
-
     "Bank":0
 
   };
 
 
-  transactions.forEach(t => {
+  list.forEach(t=>{
 
     const amount =
-      Number(t.amount) || 0;
+      Number(t.amount);
 
-    const payment =
-      t.payment || "Naqd pul";
-
-
-    if(wallets[payment] === undefined){
-
-      wallets[payment] = 0;
-
-    }
+    if(!wallets.hasOwnProperty(t.payment))
+      return;
 
 
-    if(t.type === "income"){
+    if(t.type==="income")
+      wallets[t.payment]+=amount;
 
-      wallets[payment] += amount;
-
-    }else{
-
-      wallets[payment] -= amount;
-
-    }
+    else
+      wallets[t.payment]-=amount;
 
   });
 
@@ -1488,50 +1226,69 @@ function getWallets(){
 }
 
 
-/* HOME */
+/* ================= HOME ================= */
 
 function renderHome(){
 
-  const totals = getTotals();
+  const totals =
+    getTotals();
 
-  const wallets = getWallets();
+
+  document
+    .getElementById("balance")
+    .textContent =
+    money(totals.balance);
 
 
-  document.getElementById("balance")
+  document
+    .getElementById("totalIncome")
+    .textContent =
+    money(totals.income);
+
+
+  document
+    .getElementById("totalExpense")
+    .textContent =
+    money(totals.expense);
+
+
+  const wallets =
+    getWallets();
+
+
+  document
+    .getElementById("homeWallets")
     .innerHTML =
-      Number(totals.balance)
-      .toLocaleString("uz-UZ")
-      + ' <span>so\'m</span>';
 
+    Object.entries(wallets)
+      .map(([name,value])=>`
 
-  document.getElementById("income")
-    .textContent =
-      money(totals.income);
+        <div class="wallet">
 
+          <div class="wallet-icon">
+            ${paymentIcons[name]}
+          </div>
 
-  document.getElementById("expense")
-    .textContent =
-      money(totals.expense);
+          <div class="wallet-main">
 
+            <strong>
+              ${name}
+            </strong>
 
-  document.getElementById("walletCash")
-    .textContent =
-      money(wallets["Naqd pul"]);
+            <small>
+              Joriy balans
+            </small>
 
+          </div>
 
-  document.getElementById("walletUzcard")
-    .textContent =
-      money(wallets["Uzcard"]);
+          <strong>
+            ${money(value)}
+          </strong>
 
+        </div>
 
-  document.getElementById("walletHumo")
-    .textContent =
-      money(wallets["Humo"]);
-
-
-  document.getElementById("walletBank")
-    .textContent =
-      money(wallets["Bank"]);
+      `)
+      .join("");
 
 
   renderRecent();
@@ -1539,183 +1296,688 @@ function renderHome(){
 }
 
 
-/* RECENT */
-
 function renderRecent(){
 
-  const box =
-    document.getElementById(
-      "recentTransactions"
-    );
+  const list =
+    transactions.slice(0,5);
 
 
-  if(!transactions.length){
+  if(!list.length){
 
-    box.innerHTML =
-      '<div class="empty">Hozircha operatsiyalar yo‘q</div>';
+    document
+      .getElementById("recentTransactions")
+      .innerHTML =
+      `<div class="empty">
+        Hali operatsiyalar yo‘q
+      </div>`;
 
     return;
 
   }
 
 
-  box.innerHTML =
-    transactions
-      .slice(0,5)
-      .map(transactionHTML)
-      .join("");
+  document
+    .getElementById("recentTransactions")
+    .innerHTML =
+    list.map(transactionHTML).join("");
 
 }
 
 
-/* TRANSACTION */
+/* ================= TRANSACTION ================= */
 
 function transactionHTML(t){
-
-  const income =
-    t.type === "income";
 
   const icon =
     categoryIcons[t.category] || "📦";
 
+
   const sign =
-    income ? "+" : "-";
+    t.type==="income" ? "+" : "-";
+
 
   const cls =
-    income ? "plus" : "minus";
+    t.type==="income"
+      ? "income"
+      : "expense";
 
 
   return `
 
-  <div class="transaction">
+    <div class="transaction">
 
-    <div class="tx-icon">
-      ${icon}
-    </div>
+      <div class="icon">
+        ${icon}
+      </div>
 
-    <div class="tx-info">
+      <div class="transaction-main">
 
-      <strong>
-        ${escapeHTML(t.note || "Noma'lum")}
+        <strong>
+          ${escapeHTML(t.note)}
+        </strong>
+
+        <small>
+
+          ${t.category}
+          •
+          ${paymentIcons[t.payment] || "💳"}
+          ${t.payment}
+
+          <br>
+
+          ${formatDate(t.date)}
+
+        </small>
+
+      </div>
+
+
+      <strong class="${cls}">
+        ${sign}${money(t.amount)}
       </strong>
 
-      <small>
-        ${escapeHTML(t.category || "Boshqa")}
-        ·
-        ${escapeHTML(t.payment || "Naqd pul")}
-      </small>
-
     </div>
-
-    <div class="tx-amount ${cls}">
-      ${sign}${Number(t.amount || 0)
-        .toLocaleString("uz-UZ")}
-    </div>
-
-  </div>
 
   `;
 
 }
 
 
-/* REPORT */
+function formatDate(date){
 
-function renderReport(){
+  const d =
+    new Date(date);
 
-  const totals =
-    getTotals();
+  if(isNaN(d))
+    return "";
 
-
-  document.getElementById(
-    "reportBalance"
-  ).textContent =
-    money(totals.balance);
-
-
-  document.getElementById(
-    "reportIncome"
-  ).textContent =
-    money(totals.income);
-
-
-  document.getElementById(
-    "reportExpense"
-  ).textContent =
-    money(totals.expense);
-
-
-  document.getElementById(
-    "reportCount"
-  ).textContent =
-    transactions.length;
-
-
-  const expenseTransactions =
-    transactions.filter(
-      t => t.type === "expense"
-    );
-
-
-  const average =
-    expenseTransactions.length
-    ? totals.expense /
-      expenseTransactions.length
-    : 0;
-
-
-  document.getElementById(
-    "reportAverage"
-  ).textContent =
-    money(average);
-
-
-  renderCategoryChart();
-
-  renderPaymentChart();
+  return d.toLocaleDateString("uz-UZ");
 
 }
 
 
-/* CATEGORY REPORT */
+/* ================= DATE HELPERS ================= */
 
-function renderCategoryChart(){
+function startOfDay(date=new Date()){
 
-  const box =
+  const d =
+    new Date(date);
+
+  d.setHours(0,0,0,0);
+
+  return d;
+
+}
+
+
+function endOfDay(date=new Date()){
+
+  const d =
+    new Date(date);
+
+  d.setHours(23,59,59,999);
+
+  return d;
+
+}
+
+
+function startOfWeek(date=new Date()){
+
+  const d =
+    startOfDay(date);
+
+  const day =
+    d.getDay();
+
+  const diff =
+    day===0 ? -6 : 1-day;
+
+  d.setDate(
+    d.getDate()+diff
+  );
+
+  return d;
+
+}
+
+
+function endOfWeek(date=new Date()){
+
+  const d =
+    startOfWeek(date);
+
+  d.setDate(
+    d.getDate()+6
+  );
+
+  return endOfDay(d);
+
+}
+
+
+function startOfMonth(date=new Date()){
+
+  const d =
+    new Date(date);
+
+  d.setDate(1);
+
+  d.setHours(0,0,0,0);
+
+  return d;
+
+}
+
+
+function endOfMonth(date=new Date()){
+
+  const d =
+    new Date(date);
+
+  d.setMonth(
+    d.getMonth()+1,
+    0
+  );
+
+  d.setHours(23,59,59,999);
+
+  return d;
+
+}
+
+
+function startOfYear(date=new Date()){
+
+  const d =
+    new Date(date);
+
+  d.setMonth(0,1);
+
+  d.setHours(0,0,0,0);
+
+  return d;
+
+}
+
+
+function endOfYear(date=new Date()){
+
+  const d =
+    new Date(date);
+
+  d.setMonth(11,31);
+
+  d.setHours(23,59,59,999);
+
+  return d;
+
+}
+
+
+function getPeriodRange(){
+
+  const now =
+    new Date();
+
+
+  if(reportPeriod==="day"){
+
+    return [
+      startOfDay(now),
+      endOfDay(now)
+    ];
+
+  }
+
+
+  if(reportPeriod==="week"){
+
+    return [
+      startOfWeek(now),
+      endOfWeek(now)
+    ];
+
+  }
+
+
+  if(reportPeriod==="month"){
+
+    return [
+      startOfMonth(now),
+      endOfMonth(now)
+    ];
+
+  }
+
+
+  return [
+    startOfYear(now),
+    endOfYear(now)
+  ];
+
+}
+
+
+function getReportTransactions(){
+
+  const [start,end] =
+    getPeriodRange();
+
+
+  return transactions.filter(t=>{
+
+    const d =
+      new Date(t.date);
+
+    return d>=start && d<=end;
+
+  });
+
+}
+
+
+/* ================= REPORT PERIOD ================= */
+
+function setReportPeriod(period){
+
+  reportPeriod=period;
+
+  renderReport();
+
+}
+
+
+/* ================= REPORT ================= */
+
+function renderReport(){
+
+  const list =
+    getReportTransactions();
+
+
+  const totals =
+    getTotals(list);
+
+
+  document
+    .getElementById("reportIncome")
+    .textContent =
+    money(totals.income);
+
+
+  document
+    .getElementById("reportExpense")
+    .textContent =
+    money(totals.expense);
+
+
+  document
+    .getElementById("reportBalance")
+    .textContent =
+    money(totals.balance);
+
+
+  document
+    .getElementById("reportCount")
+    .textContent =
+    list.length;
+
+
+  let title="";
+
+
+  if(reportPeriod==="day")
+    title="Bugungi hisobot";
+
+
+  if(reportPeriod==="week")
+    title="Haftalik hisobot";
+
+
+  if(reportPeriod==="month")
+    title="Oylik hisobot";
+
+
+  if(reportPeriod==="year")
+    title="Yillik hisobot";
+
+
+  document
+    .getElementById("reportPeriodTitle")
+    .textContent =
+    title;
+
+
+  let days=1;
+
+
+  if(reportPeriod==="week")
+    days=7;
+
+
+  if(reportPeriod==="month"){
+
+    const now=new Date();
+
+    days =
+      new Date(
+        now.getFullYear(),
+        now.getMonth()+1,
+        0
+      ).getDate();
+
+  }
+
+
+  if(reportPeriod==="year"){
+
+    const now=new Date();
+
+    const year=now.getFullYear();
+
+    days =
+      new Date(
+        year,
+        1,
+        29
+      ).getMonth()===1
+      ? 366
+      : 365;
+
+  }
+
+
+  document
+    .getElementById("averageExpense")
+    .textContent =
+    money(
+      totals.expense/days
+    );
+
+
+  document
+    .querySelectorAll(
+      ".period-tabs button"
+    )
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+
+  document
+    .getElementById(
+      "period"+
+      reportPeriod
+        .charAt(0)
+        .toUpperCase()+
+      reportPeriod.slice(1)
+    )
+    .classList.add("active");
+
+
+  renderDayExpenseChart(list);
+
+  renderCategoryChart(list);
+
+  renderPaymentChart(list);
+
+  renderWalletChart(list);
+
+}
+
+
+/* ================= PERIOD CHART ================= */
+
+function renderDayExpenseChart(list){
+
+  const container =
+    document.getElementById(
+      "dayExpenseChart"
+    );
+
+
+  let data=[];
+
+
+  if(reportPeriod==="day"){
+
+    data=[{
+      label:"Bugun",
+      value:getExpense(list)
+    }];
+
+  }
+
+
+  if(reportPeriod==="week"){
+
+    const names=[
+      "Dush",
+      "Sesh",
+      "Chor",
+      "Pay",
+      "Juma",
+      "Shan",
+      "Yak"
+    ];
+
+
+    const start =
+      startOfWeek();
+
+
+    for(let i=0;i<7;i++){
+
+      const day =
+        new Date(start);
+
+      day.setDate(
+        day.getDate()+i
+      );
+
+
+      const value =
+        list
+          .filter(t=>{
+
+            if(t.type!=="expense")
+              return false;
+
+            const d =
+              new Date(t.date);
+
+            return (
+              d.getFullYear()===day.getFullYear() &&
+              d.getMonth()===day.getMonth() &&
+              d.getDate()===day.getDate()
+            );
+
+          })
+          .reduce(
+            (sum,t)=>
+              sum+Number(t.amount),
+            0
+          );
+
+
+      data.push({
+        label:names[i],
+        value
+      });
+
+    }
+
+  }
+
+
+  if(reportPeriod==="month"){
+
+    const end =
+      endOfMonth();
+
+
+    for(let i=1;i<=end.getDate();i++){
+
+      const value =
+        list
+          .filter(t=>{
+
+            if(t.type!=="expense")
+              return false;
+
+            const d =
+              new Date(t.date);
+
+            return d.getDate()===i;
+
+          })
+          .reduce(
+            (sum,t)=>
+              sum+Number(t.amount),
+            0
+          );
+
+
+      data.push({
+        label:String(i),
+        value
+      });
+
+    }
+
+  }
+
+
+  if(reportPeriod==="year"){
+
+    const names=[
+      "Yan",
+      "Fev",
+      "Mar",
+      "Apr",
+      "May",
+      "Iyun",
+      "Iyul",
+      "Avg",
+      "Sen",
+      "Okt",
+      "Noy",
+      "Dek"
+    ];
+
+
+    for(let i=0;i<12;i++){
+
+      const value =
+        list
+          .filter(t=>{
+
+            if(t.type!=="expense")
+              return false;
+
+            return (
+              new Date(t.date)
+                .getMonth()===i
+            );
+
+          })
+          .reduce(
+            (sum,t)=>
+              sum+Number(t.amount),
+            0
+          );
+
+
+      data.push({
+        label:names[i],
+        value
+      });
+
+    }
+
+  }
+
+
+  const max =
+    Math.max(
+      ...data.map(x=>x.value),
+      1
+    );
+
+
+  container.innerHTML =
+    data.map(x=>`
+
+      <div class="day-column">
+
+        ${
+          x.value>0
+          ?
+          `<div class="day-column-value">
+             ${money(x.value)}
+           </div>`
+          :
+          ""
+        }
+
+        <div
+          class="day-column-bar"
+          style="
+            height:
+            ${Math.max(
+              3,
+              x.value/max*125
+            )}px
+          "
+        ></div>
+
+        <div class="day-column-label">
+          ${x.label}
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* ================= CATEGORY ================= */
+
+function renderCategoryChart(list){
+
+  const container =
     document.getElementById(
       "categoryChart"
     );
 
 
-  const categories = {};
+  const data={};
 
 
-  transactions.forEach(t => {
+  list
+    .filter(t=>t.type==="expense")
+    .forEach(t=>{
 
-    if(t.type !== "expense")
-      return;
+      data[t.category] =
+        (data[t.category]||0)
+        +Number(t.amount);
 
-
-    const category =
-      t.category || "Boshqa";
-
-
-    categories[category] =
-      (categories[category] || 0)
-      + Number(t.amount || 0);
-
-  });
+    });
 
 
   const entries =
-    Object.entries(categories)
-      .sort((a,b) => b[1] - a[1]);
+    Object.entries(data)
+      .sort((a,b)=>b[1]-a[1]);
 
 
   if(!entries.length){
 
-    box.innerHTML =
-      '<div class="empty">Chiqimlar hali yo‘q</div>';
+    container.innerHTML =
+      `<div class="empty">
+        Bu davrda xarajat yo‘q
+      </div>`;
 
     return;
 
@@ -1723,169 +1985,197 @@ function renderCategoryChart(){
 
 
   const max =
-    Math.max(
-      ...entries.map(x => x[1]),
-      1
-    );
+    entries[0][1];
 
 
-  box.innerHTML =
-    entries.map(([name,value]) => {
+  container.innerHTML =
+    entries.map(([name,value])=>`
 
-      const icon =
-        categoryIcons[name] || "📦";
+      <div class="bar-row">
 
+        <div class="bar-top">
 
-      const percent =
-        Math.max(
-          4,
-          (value / max) * 100
-        );
+          <span>
+            ${categoryIcons[name]||"📦"}
+            ${name}
+          </span>
 
+          <strong>
+            ${money(value)}
+          </strong>
 
-      return `
-
-      <div class="category-report">
-
-        <div class="category-icon">
-          ${icon}
         </div>
 
-        <div class="category-main">
+        <div class="bar">
 
-          <div class="category-top">
-
-            <strong>
-              ${escapeHTML(name)}
-            </strong>
-
-            <span>
-              ${money(value)}
-            </span>
-
-          </div>
-
-          <div class="category-bar-bg">
-
-            <div
-              class="category-bar"
-              style="width:${percent}%">
-            </div>
-
-          </div>
+          <div
+            class="bar-fill"
+            style="
+              width:
+              ${value/max*100}%
+            "
+          ></div>
 
         </div>
 
       </div>
 
-      `;
-
-    }).join("");
+    `).join("");
 
 }
 
 
-/* PAYMENT REPORT */
+/* ================= PAYMENT ================= */
 
-function renderPaymentChart(){
+function renderPaymentChart(list){
 
-  const box =
+  const container =
     document.getElementById(
       "paymentChart"
     );
 
 
+  const data={};
+
+
+  list
+    .filter(t=>t.type==="expense")
+    .forEach(t=>{
+
+      data[t.payment] =
+        (data[t.payment]||0)
+        +Number(t.amount);
+
+    });
+
+
+  const entries =
+    Object.entries(data)
+      .sort((a,b)=>b[1]-a[1]);
+
+
+  if(!entries.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        Bu davrda xarajat yo‘q
+      </div>`;
+
+    return;
+
+  }
+
+
+  const max =
+    entries[0][1];
+
+
+  container.innerHTML =
+    entries.map(([name,value])=>`
+
+      <div class="bar-row">
+
+        <div class="bar-top">
+
+          <span>
+            ${paymentIcons[name]||"💳"}
+            ${name}
+          </span>
+
+          <strong>
+            ${money(value)}
+          </strong>
+
+        </div>
+
+        <div class="bar">
+
+          <div
+            class="bar-fill"
+            style="
+              width:
+              ${value/max*100}%
+            "
+          ></div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* ================= WALLET REPORT ================= */
+
+function renderWalletChart(list){
+
+  const container =
+    document.getElementById(
+      "walletChart"
+    );
+
+
   const wallets =
-    getWallets();
-
-
-  const icons = {
-
-    "Naqd pul":"💵",
-
-    "Uzcard":"💳",
-
-    "Humo":"💳",
-
-    "Bank":"🏦"
-
-  };
+    getWallets(list);
 
 
   const entries =
     Object.entries(wallets);
 
 
-  const max =
-    Math.max(
-      ...entries.map(
-        x => Math.abs(x[1])
-      ),
-      1
-    );
+  container.innerHTML =
+    entries.map(([name,value])=>`
 
+      <div class="bar-row">
 
-  box.innerHTML =
-    entries.map(([name,value]) => {
+        <div class="bar-top">
 
-      const width =
-        Math.max(
-          4,
-          Math.abs(value) / max * 100
-        );
+          <span>
+            ${paymentIcons[name]}
+            ${name}
+          </span>
 
+          <strong class="
+            ${value>=0
+              ?"income"
+              :"expense"}
+          ">
+            ${money(value)}
+          </strong>
 
-      return `
-
-      <div class="category-report">
-
-        <div class="category-icon">
-          ${icons[name] || "💰"}
         </div>
 
-        <div class="category-main">
+        <div class="bar">
 
-          <div class="category-top">
-
-            <strong>
-              ${name}
-            </strong>
-
-            <span>
-              ${money(value)}
-            </span>
-
-          </div>
-
-          <div class="category-bar-bg">
-
-            <div
-              class="category-bar"
-              style="width:${width}%">
-            </div>
-
-          </div>
+          <div
+            class="bar-fill"
+            style="
+              width:
+              ${Math.min(
+                100,
+                Math.abs(value)/
+                Math.max(
+                  ...entries.map(x=>Math.abs(x[1])),
+                  1
+                )*100
+              )}%
+            "
+          ></div>
 
         </div>
 
       </div>
 
-      `;
-
-    }).join("");
+    `).join("");
 
 }
 
 
-/* ALL */
+/* ================= ALL ================= */
 
 function renderAllTransactions(){
-
-  const box =
-    document.getElementById(
-      "allTransactions"
-    );
-
 
   const input =
     document.getElementById(
@@ -1894,131 +2184,151 @@ function renderAllTransactions(){
 
 
   const search =
-    (input?.value || "")
-      .toLowerCase();
+    input
+      ? input.value.toLowerCase()
+      : "";
 
 
-  const filtered =
-    transactions.filter(t => {
+  const list =
+    transactions.filter(t=>{
 
       const text =
-        [
-          t.note,
-          t.category,
-          t.payment
-        ]
-        .join(" ")
+        `${t.note}
+         ${t.category}
+         ${t.payment}`
         .toLowerCase();
-
 
       return text.includes(search);
 
     });
 
 
-  if(!filtered.length){
+  const container =
+    document.getElementById(
+      "allTransactions"
+    );
 
-    box.innerHTML =
-      '<div class="empty">Operatsiya topilmadi</div>';
+
+  if(!list.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        Operatsiyalar topilmadi
+      </div>`;
 
     return;
 
   }
 
 
-  box.innerHTML =
-    filtered
-      .map(transactionHTML)
-      .join("");
+  container.innerHTML =
+    list.map(t=>`
+
+      <div style="position:relative">
+
+        ${transactionHTML(t)}
+
+        <button
+          class="delete-btn"
+          onclick="
+            deleteTransaction(${t.id})
+          "
+          style="
+            position:absolute;
+            right:8px;
+            bottom:10px;
+          "
+        >
+          🗑
+        </button>
+
+      </div>
+
+    `).join("");
 
 }
 
 
-/* NAV */
+function deleteTransaction(id){
 
-function navigate(page){
+  if(
+    !confirm(
+      "Bu operatsiyani o‘chirasizmi?"
+    )
+  )
+    return;
+
+
+  transactions =
+    transactions.filter(
+      t=>t.id!==id
+    );
+
+
+  saveData();
+
+  renderAll();
+
+  showToast("O‘chirildi");
+
+}
+
+
+/* ================= NAVIGATION ================= */
+
+function navigate(page,button){
 
   document
     .querySelectorAll(".page")
-    .forEach(p =>
+    .forEach(p=>
       p.classList.remove("active")
     );
 
 
-  const target =
-    document.getElementById(
-      page + "Page"
-    );
-
-
-  if(target){
-
-    target.classList.add("active");
-
-  }
+  document
+    .getElementById(
+      page+"Page"
+    )
+    .classList.add("active");
 
 
   document
     .querySelectorAll(".nav-btn")
-    .forEach(b =>
+    .forEach(b=>
       b.classList.remove("active")
     );
 
 
-  if(page === "home"){
-
-    document
-      .getElementById("navHome")
-      .classList.add("active");
-
-  }
+  if(button)
+    button.classList.add("active");
 
 
-  if(page === "report"){
-
-    document
-      .getElementById("navReport")
-      .classList.add("active");
-
+  if(page==="report")
     renderReport();
 
-  }
 
-
-  if(page === "settings"){
-
-    document
-      .getElementById("navSettings")
-      .classList.add("active");
-
-  }
-
-
-  if(page === "all"){
-
+  if(page==="all")
     renderAllTransactions();
-
-  }
 
 }
 
 
-/* BACKUP */
+/* ================= BACKUP ================= */
 
 function backupData(){
 
-  const data =
-    JSON.stringify(
-      transactions,
-      null,
-      2
-    );
-
-
   const blob =
     new Blob(
-      [data],
-      {type:"application/json"}
+      [
+        JSON.stringify(
+          transactions,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
     );
 
 
@@ -2030,28 +2340,23 @@ function backupData(){
     document.createElement("a");
 
 
-  a.href = url;
+  a.href=url;
 
-  a.download =
+  a.download=
     "kirim-chiqim-backup.json";
-
-
-  document.body.appendChild(a);
 
   a.click();
 
-  a.remove();
-
-
   URL.revokeObjectURL(url);
 
-
-  showToast("Backup saqlandi ✓");
+  showToast(
+    "Backup tayyor ✅"
+  );
 
 }
 
 
-/* RESTORE */
+/* ================= RESTORE ================= */
 
 function restoreData(event){
 
@@ -2067,44 +2372,39 @@ function restoreData(event){
     new FileReader();
 
 
-  reader.onload =
-    function(e){
+  reader.onload=function(){
 
-      try{
+    try{
 
-        const data =
-          JSON.parse(
-            e.target.result
-          );
-
-
-        if(!Array.isArray(data)){
-
-          throw new Error();
-
-        }
-
-
-        transactions = data;
-
-        saveData();
-
-        renderAll();
-
-        showToast(
-          "Ma'lumotlar tiklandi ✓"
+      const data =
+        JSON.parse(
+          reader.result
         );
 
 
-      }catch(error){
+      if(!Array.isArray(data))
+        throw new Error();
 
-        alert(
-          "Backup fayli noto‘g‘ri."
-        );
 
-      }
+      transactions=data;
 
-    };
+      saveData();
+
+      renderAll();
+
+      showToast(
+        "Ma'lumotlar tiklandi ✅"
+      );
+
+    }catch(e){
+
+      showToast(
+        "Backup fayl noto‘g‘ri"
+      );
+
+    }
+
+  };
 
 
   reader.readAsText(file);
@@ -2112,32 +2412,19 @@ function restoreData(event){
 }
 
 
-/* CLEAR */
+/* ================= CLEAR ================= */
 
 function clearData(){
 
-  if(!transactions.length){
-
-    alert(
-      "O‘chiriladigan ma'lumot yo‘q."
-    );
-
-    return;
-
-  }
-
-
-  const ok =
-    confirm(
-      "Barcha operatsiyalar o‘chirilsinmi?"
-    );
-
-
-  if(!ok)
+  if(
+    !confirm(
+      "Barcha ma'lumotlar o‘chiriladi. Davom etasizmi?"
+    )
+  )
     return;
 
 
-  transactions = [];
+  transactions=[];
 
   saveData();
 
@@ -2150,37 +2437,55 @@ function clearData(){
 }
 
 
-/* THEME */
+/* ================= THEME ================= */
 
 function toggleTheme(){
 
-  document.body.classList.toggle("light");
-
-
-  const light =
-    document.body.classList.contains(
-      "light"
-    );
-
+  document.body.classList.toggle(
+    "dark"
+  );
 
   localStorage.setItem(
     "kirimTheme",
-    light
-      ? "light"
-      : "dark"
-  );
-
-
-  showToast(
-    light
-    ? "Yorug‘ rejim yoqildi"
-    : "Tungi rejim yoqildi"
+    document.body.classList.contains("dark")
+      ? "dark"
+      : "light"
   );
 
 }
 
 
-/* TOAST */
+function loadTheme(){
+
+  if(
+    localStorage.getItem(
+      "kirimTheme"
+    )==="dark"
+  ){
+
+    document.body.classList.add(
+      "dark"
+    );
+
+  }
+
+}
+
+
+/* ================= HELPERS ================= */
+
+function getExpense(list){
+
+  return list
+    .filter(t=>t.type==="expense")
+    .reduce(
+      (sum,t)=>
+        sum+Number(t.amount),
+      0
+    );
+
+}
+
 
 function showToast(message){
 
@@ -2190,66 +2495,37 @@ function showToast(message){
     );
 
 
-  toast.textContent = message;
+  toast.textContent=message;
 
-  toast.classList.add("show");
+  toast.style.display="block";
 
 
-  setTimeout(() => {
+  setTimeout(()=>{
 
-    toast.classList.remove("show");
+    toast.style.display="none";
 
   },2000);
 
 }
 
 
-/* ESCAPE */
+function escapeHTML(str){
 
-function escapeHTML(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-/* RENDER */
-
-function renderAll(){
-
-  renderHome();
-
-  renderReport();
-
-  renderAllTransactions();
-
-}
-
-
-/* START */
+/* ================= START ================= */
 
 loadData();
 
-
-const savedTheme =
-  localStorage.getItem(
-    "kirimTheme"
-  );
-
-
-if(savedTheme === "light"){
-
-  document.body.classList.add(
-    "light"
-  );
-
-}
-
+loadTheme();
 
 renderAll();
 
