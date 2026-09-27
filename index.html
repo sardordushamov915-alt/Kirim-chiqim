@@ -1,59 +1,803 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<title>Kirim Chiqim</title>
-<link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+
+<title>Kirim-Chiqim</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f4f5f7;color:#15171a;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif}
-.app{max-width:520px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 16px calc(88px + env(safe-area-inset-bottom))}
-header{padding:22px 4px 14px;display:flex;justify-content:space-between;align-items:center}h1{font-size:27px;margin:0}button{border:0;font:inherit;cursor:pointer}
-.card{background:#151a22;color:white;border-radius:24px;padding:22px;margin-bottom:14px;box-shadow:0 8px 25px #00000014}
-.small{font-size:13px;opacity:.7}.balance{font-size:34px;font-weight:750;margin:7px 0 18px}.row{display:flex;gap:10px}.stat{flex:1;background:#ffffff12;border-radius:16px;padding:12px}.green{color:#7ee2a8}.red{color:#ff8d8d}
-.section{font-size:18px;font-weight:700;margin:22px 4px 10px}.actions{display:flex;gap:10px}.action{flex:1;padding:15px;border-radius:17px;font-weight:700}.in{background:#dff8e9;color:#16834c}.out{background:#ffe3e3;color:#b72e2e}
-.item{background:white;border-radius:18px;padding:14px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}.left{display:flex;gap:12px;align-items:center}.icon{width:42px;height:42px;border-radius:14px;background:#f0f1f4;display:grid;place-items:center;font-size:20px}.name{font-weight:650}.date{font-size:12px;color:#888;margin-top:3px}
-nav{position:fixed;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(16px);border-top:1px solid #ddd;padding:10px max(16px,calc((100vw - 520px)/2)) calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:space-around}
-nav button{background:none;color:#777;font-size:12px;padding:4px 18px}nav .active{color:#111;font-weight:700}
-.modal{position:fixed;inset:0;background:#0006;display:none;align-items:flex-end;z-index:5}.sheet{background:#fff;width:100%;max-width:520px;margin:auto;border-radius:26px 26px 0 0;padding:20px 18px calc(25px + env(safe-area-inset-bottom))}
-input,select{width:100%;padding:15px;border:1px solid #ddd;border-radius:14px;font-size:17px;margin:7px 0 13px;background:#fafafa}label{font-size:13px;color:#666}.save{width:100%;padding:16px;border-radius:16px;background:#151a22;color:white;font-weight:700;font-size:16px}
-.close{float:right;background:#eee;border-radius:50%;width:34px;height:34px}.empty{text-align:center;color:#888;padding:25px}
-.hidden{display:none}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+  background:#080c18;
+  color:#fff;
+  min-height:100vh;
+  padding-bottom:90px;
+}
+
+button,input,select{
+  font-family:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  max-width:500px;
+  margin:auto;
+  padding:20px 16px 100px;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.greeting small{
+  color:#858da3;
+  font-size:13px;
+}
+
+.greeting h1{
+  font-size:25px;
+  margin-top:5px;
+}
+
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#7c5cff,#00d4ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  box-shadow:0 8px 25px #624dff40;
+}
+
+/* BALANCE */
+
+.balance-card{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 80% 0%,#5d4dff55,transparent 45%),
+    linear-gradient(135deg,#151c35,#10172b);
+  border:1px solid #273052;
+  border-radius:27px;
+  padding:24px;
+  box-shadow:0 20px 50px #00000035;
+  margin-bottom:18px;
+}
+
+.balance-card:after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:#7c5cff18;
+  right:-60px;
+  bottom:-70px;
+}
+
+.balance-title{
+  color:#929ab0;
+  font-size:14px;
+}
+
+.balance{
+  font-size:34px;
+  font-weight:800;
+  margin:9px 0 20px;
+  letter-spacing:-1px;
+}
+
+.balance span{
+  font-size:17px;
+  color:#a8afc1;
+  font-weight:500;
+}
+
+.balance-row{
+  display:flex;
+  gap:12px;
+}
+
+.balance-mini{
+  flex:1;
+  background:#ffffff08;
+  border:1px solid #ffffff0d;
+  border-radius:17px;
+  padding:13px;
+}
+
+.balance-mini small{
+  display:block;
+  color:#858da3;
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+.balance-mini strong{
+  font-size:15px;
+}
+
+.income{
+  color:#35e58c;
+}
+
+.expense{
+  color:#ff6077;
+}
+
+/* QUICK BUTTONS */
+
+.quick{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:24px;
+}
+
+.quick button{
+  padding:16px;
+  border-radius:19px;
+  color:white;
+  font-size:15px;
+  font-weight:700;
+}
+
+.btn-income{
+  background:linear-gradient(135deg,#20c978,#39e99b);
+  box-shadow:0 10px 25px #20c97825;
+}
+
+.btn-expense{
+  background:linear-gradient(135deg,#ff4966,#ff6d80);
+  box-shadow:0 10px 25px #ff496625;
+}
+
+/* SECTION */
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:22px 0 12px;
+}
+
+.section-title h2{
+  font-size:18px;
+}
+
+.section-title button{
+  color:#7c8cff;
+  background:none;
+  font-size:13px;
+}
+
+/* WALLETS */
+
+.wallets{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding-bottom:4px;
+}
+
+.wallets::-webkit-scrollbar{
+  display:none;
+}
+
+.wallet{
+  min-width:150px;
+  background:#11172a;
+  border:1px solid #222b47;
+  border-radius:20px;
+  padding:17px;
+}
+
+.wallet-icon{
+  width:37px;
+  height:37px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:13px;
+  background:#242d4a;
+}
+
+.wallet small{
+  color:#7f889e;
+  display:block;
+  font-size:11px;
+}
+
+.wallet strong{
+  display:block;
+  margin-top:5px;
+  font-size:16px;
+}
+
+/* TRANSACTIONS */
+
+.transaction{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:15px 0;
+  border-bottom:1px solid #ffffff0a;
+}
+
+.tx-icon{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#171f35;
+  font-size:19px;
+}
+
+.tx-info{
+  flex:1;
+}
+
+.tx-info strong{
+  display:block;
+  font-size:14px;
+  margin-bottom:4px;
+}
+
+.tx-info small{
+  color:#777f94;
+  font-size:11px;
+}
+
+.tx-amount{
+  font-size:14px;
+  font-weight:700;
+}
+
+.plus{
+  color:#35e58c;
+}
+
+.minus{
+  color:#ff6077;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  color:#6f778d;
+  padding:30px 0;
+  font-size:13px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  z-index:20;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:500px;
+  background:#0d1221ee;
+  backdrop-filter:blur(20px);
+  border-top:1px solid #ffffff0b;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  display:flex;
+  justify-content:space-around;
+}
+
+.nav-btn{
+  background:none;
+  color:#6e768b;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  font-size:10px;
+  min-width:60px;
+}
+
+.nav-btn span{
+  font-size:21px;
+}
+
+.nav-btn.active{
+  color:#8b7cff;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  z-index:50;
+  inset:0;
+  background:#00000099;
+  backdrop-filter:blur(7px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:500px;
+  background:#11172a;
+  border-radius:28px 28px 0 0;
+  padding:22px 18px 30px;
+  border-top:1px solid #2a3556;
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.modal-head h2{
+  font-size:20px;
+}
+
+.close{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:#20283f;
+  color:#fff;
+  font-size:20px;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group label{
+  display:block;
+  color:#81899e;
+  font-size:12px;
+  margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:15px;
+  border-radius:15px;
+  border:1px solid #27304b;
+  background:#0c1221;
+  color:white;
+  outline:none;
+  font-size:15px;
+}
+
+.save-btn{
+  width:100%;
+  padding:16px;
+  border-radius:17px;
+  background:linear-gradient(135deg,#705cff,#9a7cff);
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  margin-top:5px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:360px){
+  .balance{
+    font-size:29px;
+  }
+
+  .wallet{
+    min-width:140px;
+  }
+}
 </style>
 </head>
-<body>
-<div class="app">
-<header><div><div class="small">Shaxsiy moliya</div><h1>Kirim-Chiqim</h1></div><button onclick="resetAll()" title="Tozalash">⋯</button></header>
-<section class="card">
-<div class="small">Jami balans</div><div class="balance" id="balance">0 so‘m</div>
-<div class="row"><div class="stat"><div class="small">Kirim</div><b class="green" id="income">+0</b></div><div class="stat"><div class="small">Chiqim</div><b class="red" id="expense">−0</b></div></div>
-</section>
-<div class="actions"><button class="action in" onclick="openModal('income')">＋ Kirim</button><button class="action out" onclick="openModal('expense')">− Chiqim</button></div>
-<div class="section">Oxirgi operatsiyalar</div><div id="list"></div>
-</div>
-<nav><button class="active" onclick="location.reload()">⌂<br>Bosh sahifa</button><button onclick="openModal('expense')">＋<br>Qo‘shish</button><button onclick="showReport()">◔<br>Hisobot</button></nav>
 
-<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet">
-<button class="close" onclick="closeModal()">×</button><h2 id="modalTitle">Chiqim</h2>
-<label>Summa</label><input id="amount" type="number" inputmode="decimal" placeholder="0">
-<label>Kategoriya</label><select id="category"></select>
-<label>To‘lov turi</label><select id="method"><option>Naqd</option><option>Uzcard</option><option>Humo</option><option>Visa</option><option>Bank</option></select>
-<label>Izoh</label><input id="note" placeholder="Masalan: tushlik">
-<button class="save" onclick="saveTx()">Saqlash</button>
-</div></div>
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="greeting">
+      <small>Xush kelibsiz 👋</small>
+      <h1>Kirim-Chiqim</h1>
+    </div>
+
+    <div class="avatar">💰</div>
+  </div>
+
+  <div class="balance-card">
+
+    <div class="balance-title">
+      Umumiy balans
+    </div>
+
+    <div class="balance">
+      0 <span>so'm</span>
+    </div>
+
+    <div class="balance-row">
+
+      <div class="balance-mini">
+        <small>↑ Kirim</small>
+        <strong class="income">0 so'm</strong>
+      </div>
+
+      <div class="balance-mini">
+        <small>↓ Chiqim</small>
+        <strong class="expense">0 so'm</strong>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="quick">
+
+    <button class="btn-income" onclick="openModal('income')">
+      ＋ Kirim
+    </button>
+
+    <button class="btn-expense" onclick="openModal('expense')">
+      − Chiqim
+    </button>
+
+  </div>
+
+  <div class="section-title">
+    <h2>Hamyonlar</h2>
+    <button onclick="showWallets()">Barchasi</button>
+  </div>
+
+  <div class="wallets">
+
+    <div class="wallet">
+      <div class="wallet-icon">💵</div>
+      <small>Naqd pul</small>
+      <strong>0 so'm</strong>
+    </div>
+
+    <div class="wallet">
+      <div class="wallet-icon">💳</div>
+      <small>Uzcard</small>
+      <strong>0 so'm</strong>
+    </div>
+
+    <div class="wallet">
+      <div class="wallet-icon">💳</div>
+      <small>Humo</small>
+      <strong>0 so'm</strong>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>So'nggi operatsiyalar</h2>
+    <button onclick="showTransactions()">Barchasi</button>
+  </div>
+
+  <div id="transactions">
+
+    <div class="empty">
+      Hozircha operatsiyalar yo'q
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+  <button class="nav-btn active">
+    <span>⌂</span>
+    Bosh sahifa
+  </button>
+
+  <button class="nav-btn" onclick="openModal('expense')">
+    <span>＋</span>
+    Qo'shish
+  </button>
+
+  <button class="nav-btn">
+    <span>◔</span>
+    Hisobot
+  </button>
+
+  <button class="nav-btn">
+    <span>⚙</span>
+    Sozlamalar
+  </button>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2 id="modalTitle">
+        Chiqim qo'shish
+      </h2>
+
+      <button class="close" onclick="closeModal()">×</button>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Miqdor</label>
+
+      <input
+        id="amount"
+        type="number"
+        placeholder="Masalan: 50000"
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Nima uchun?</label>
+
+      <input
+        id="note"
+        type="text"
+        placeholder="Masalan: Ovqat"
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Kategoriya</label>
+
+      <select id="category">
+
+        <option>Ovqat</option>
+        <option>Transport</option>
+        <option>Uy</option>
+        <option>Shopping</option>
+        <option>Ko'ngilochar</option>
+        <option>Telefon</option>
+        <option>Salomatlik</option>
+        <option>Boshqa</option>
+
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>To'lov turi</label>
+
+      <select id="payment">
+
+        <option>Naqd</option>
+        <option>Uzcard</option>
+        <option>Humo</option>
+        <option>Visa</option>
+        <option>Bank</option>
+
+      </select>
+
+    </div>
+
+    <button class="save-btn" onclick="saveTransaction()">
+      Saqlash
+    </button>
+
+  </div>
+
+</div>
+
+
 <script>
-const cats=['🍔 Ovqat','🚗 Mashina','⛽ Yoqilg‘i','☕ Kafe','🛍 Xarid','👕 Kiyim','🏠 Uy','💳 Kredit','🎁 Sovg‘a','📦 Boshqa'];
-let tx=JSON.parse(localStorage.getItem('tx')||'[]'), type='expense';
-const fmt=n=>new Intl.NumberFormat('uz-UZ').format(n)+' so‘m';
-function render(){let inc=tx.filter(x=>x.type==='income').reduce((a,x)=>a+x.amount,0),out=tx.filter(x=>x.type==='expense').reduce((a,x)=>a+x.amount,0);
-balance.textContent=fmt(inc-out);income.textContent='+'+fmt(inc);expense.textContent='−'+fmt(out);
-list.innerHTML=tx.length?tx.slice().reverse().map(x=>`<div class="item"><div class="left"><div class="icon">${x.type==='income'?'💰':x.cat[0]}</div><div><div class="name">${x.cat.slice(2)}</div><div class="date">${x.note||x.method} · ${x.date}</div></div></div><b class="${x.type==='income'?'green':'red'}">${x.type==='income'?'+':'−'}${fmt(x.amount)}</b></div>`).join(''):'<div class="empty">Hozircha operatsiya yo‘q.<br>＋ Kirim yoki Chiqim qo‘shing.</div>'}
-function openModal(t){type=t;modal.style.display='flex';modalTitle.textContent=t==='income'?'Kirim qo‘shish':'Chiqim qo‘shish';category.innerHTML=(t==='income'?['💰 Ish haqi','💵 Qo‘shimcha daromad','🎁 Sovg‘a','📦 Boshqa']:cats).map(x=>`<option>${x}</option>`).join('');amount.value='';note.value=''}
-function closeModal(){modal.style.display='none'}
-function saveTx(){let a=Number(amount.value);if(!a||a<=0){alert('Summani kiriting');return}tx.push({type,amount:a,cat:category.value,method:method.value,note:note.value,date:new Date().toLocaleDateString('uz-UZ')});localStorage.setItem('tx',JSON.stringify(tx));closeModal();render()}
-function showReport(){let inc=tx.filter(x=>x.type==='income').reduce((a,x)=>a+x.amount,0),out=tx.filter(x=>x.type==='expense').reduce((a,x)=>a+x.amount,0);alert('Hisobot\\n\\nKirim: '+fmt(inc)+'\\nChiqim: '+fmt(out)+'\\nBalans: '+fmt(inc-out))}
-function resetAll(){if(confirm('Barcha ma’lumotlar o‘chirilsinmi?')){tx=[];localStorage.removeItem('tx');render()}}
+
+let currentType = "expense";
+
+function openModal(type){
+
+  currentType = type;
+
+  document.getElementById("modal").classList.add("show");
+
+  document.getElementById("modalTitle").textContent =
+    type === "income"
+    ? "Kirim qo'shish"
+    : "Chiqim qo'shish";
+
+}
+
+function closeModal(){
+
+  document.getElementById("modal").classList.remove("show");
+
+}
+
+function saveTransaction(){
+
+  const amount =
+    Number(document.getElementById("amount").value);
+
+  const note =
+    document.getElementById("note").value.trim();
+
+  if(!amount){
+
+    alert("Miqdorni kiriting");
+
+    return;
+  }
+
+  let txs =
+    JSON.parse(
+      localStorage.getItem("kirimChiqimV3") || "[]"
+    );
+
+  txs.unshift({
+
+    id:Date.now(),
+
+    type:currentType,
+
+    amount:amount,
+
+    note:note || "Noma'lum",
+
+    category:
+      document.getElementById("category").value,
+
+    payment:
+      document.getElementById("payment").value,
+
+    date:new Date().toISOString()
+
+  });
+
+  localStorage.setItem(
+    "kirimChiqimV3",
+    JSON.stringify(txs)
+  );
+
+  document.getElementById("amount").value="";
+  document.getElementById("note").value="";
+
+  closeModal();
+
+  render();
+
+}
+
+function render(){
+
+  let txs =
+    JSON.parse(
+      localStorage.getItem("kirimChiqimV3") || "[]"
+    );
+
+  let income=0;
+  let expense=0;
+
+  txs.forEach(t=>{
+
+    if(t.type==="income")
+      income+=Number(t.amount);
+
+    else
+      expense+=Number(t.amount);
+
+  });
+
+  document.querySelector(".balance").innerHTML =
+    (income-expense).toLocaleString("uz-UZ")+
+    ' <span>so\'m</span>';
+
+  document.querySelector(".income").textContent =
+    income.toLocaleString("uz-UZ")+" so'm";
+
+  document.querySelector(".expense").textContent =
+    expense.toLocaleString("uz-UZ")+" so'm";
+
+
+  const box =
+    document.getElementById("transactions");
+
+  if(!txs.length){
+
+    box.innerHTML =
+      '<div class="empty">Hozircha operatsiyalar yo\'q</div>';
+
+    return;
+
+  }
+
+  box.innerHTML =
+    txs.slice(0,5).map(t=>`
+
+      <div class="transaction">
+
+        <div class="tx-icon">
+          ${t.type==="income" ? "💰" : "🛒"}
+        </div>
+
+        <div class="tx-info">
+
+          <strong>${t.note}</strong>
+
+          <small>
+            ${t.category} · ${t.payment}
+          </small>
+
+        </div>
+
+        <div class="tx-amount ${
+          t.type==="income" ? "plus" : "minus"
+        }">
+
+          ${t.type==="income" ? "+" : "-"}
+          ${Number(t.amount).toLocaleString("uz-UZ")}
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+function showWallets(){
+
+  alert("Hamyonlar bo'limini keyingi bosqichda qo'shamiz.");
+
+}
+
+function showTransactions(){
+
+  alert("Barcha operatsiyalar bo'limini keyingi bosqichda qo'shamiz.");
+
+}
+
 render();
+
 </script>
-</body></html>
+
+</body>
+</html>
