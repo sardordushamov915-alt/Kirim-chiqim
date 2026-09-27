@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>Kirim Chiqim</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f5f7;color:#15171a;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 16px calc(88px + env(safe-area-inset-bottom))}
+header{padding:22px 4px 14px;display:flex;justify-content:space-between;align-items:center}h1{font-size:27px;margin:0}button{border:0;font:inherit;cursor:pointer}
+.card{background:#151a22;color:white;border-radius:24px;padding:22px;margin-bottom:14px;box-shadow:0 8px 25px #00000014}
+.small{font-size:13px;opacity:.7}.balance{font-size:34px;font-weight:750;margin:7px 0 18px}.row{display:flex;gap:10px}.stat{flex:1;background:#ffffff12;border-radius:16px;padding:12px}.green{color:#7ee2a8}.red{color:#ff8d8d}
+.section{font-size:18px;font-weight:700;margin:22px 4px 10px}.actions{display:flex;gap:10px}.action{flex:1;padding:15px;border-radius:17px;font-weight:700}.in{background:#dff8e9;color:#16834c}.out{background:#ffe3e3;color:#b72e2e}
+.item{background:white;border-radius:18px;padding:14px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}.left{display:flex;gap:12px;align-items:center}.icon{width:42px;height:42px;border-radius:14px;background:#f0f1f4;display:grid;place-items:center;font-size:20px}.name{font-weight:650}.date{font-size:12px;color:#888;margin-top:3px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(16px);border-top:1px solid #ddd;padding:10px max(16px,calc((100vw - 520px)/2)) calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:space-around}
+nav button{background:none;color:#777;font-size:12px;padding:4px 18px}nav .active{color:#111;font-weight:700}
+.modal{position:fixed;inset:0;background:#0006;display:none;align-items:flex-end;z-index:5}.sheet{background:#fff;width:100%;max-width:520px;margin:auto;border-radius:26px 26px 0 0;padding:20px 18px calc(25px + env(safe-area-inset-bottom))}
+input,select{width:100%;padding:15px;border:1px solid #ddd;border-radius:14px;font-size:17px;margin:7px 0 13px;background:#fafafa}label{font-size:13px;color:#666}.save{width:100%;padding:16px;border-radius:16px;background:#151a22;color:white;font-weight:700;font-size:16px}
+.close{float:right;background:#eee;border-radius:50%;width:34px;height:34px}.empty{text-align:center;color:#888;padding:25px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><div class="small">Shaxsiy moliya</div><h1>Kirim-Chiqim</h1></div><button onclick="resetAll()" title="Tozalash">⋯</button></header>
+<section class="card">
+<div class="small">Jami balans</div><div class="balance" id="balance">0 so‘m</div>
+<div class="row"><div class="stat"><div class="small">Kirim</div><b class="green" id="income">+0</b></div><div class="stat"><div class="small">Chiqim</div><b class="red" id="expense">−0</b></div></div>
+</section>
+<div class="actions"><button class="action in" onclick="openModal('income')">＋ Kirim</button><button class="action out" onclick="openModal('expense')">− Chiqim</button></div>
+<div class="section">Oxirgi operatsiyalar</div><div id="list"></div>
+</div>
+<nav><button class="active" onclick="location.reload()">⌂<br>Bosh sahifa</button><button onclick="openModal('expense')">＋<br>Qo‘shish</button><button onclick="showReport()">◔<br>Hisobot</button></nav>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet">
+<button class="close" onclick="closeModal()">×</button><h2 id="modalTitle">Chiqim</h2>
+<label>Summa</label><input id="amount" type="number" inputmode="decimal" placeholder="0">
+<label>Kategoriya</label><select id="category"></select>
+<label>To‘lov turi</label><select id="method"><option>Naqd</option><option>Uzcard</option><option>Humo</option><option>Visa</option><option>Bank</option></select>
+<label>Izoh</label><input id="note" placeholder="Masalan: tushlik">
+<button class="save" onclick="saveTx()">Saqlash</button>
+</div></div>
+<script>
+const cats=['🍔 Ovqat','🚗 Mashina','⛽ Yoqilg‘i','☕ Kafe','🛍 Xarid','👕 Kiyim','🏠 Uy','💳 Kredit','🎁 Sovg‘a','📦 Boshqa'];
+let tx=JSON.parse(localStorage.getItem('tx')||'[]'), type='expense';
+const fmt=n=>new Intl.NumberFormat('uz-UZ').format(n)+' so‘m';
+function render(){let inc=tx.filter(x=>x.type==='income').reduce((a,x)=>a+x.amount,0),out=tx.filter(x=>x.type==='expense').reduce((a,x)=>a+x.amount,0);
+balance.textContent=fmt(inc-out);income.textContent='+'+fmt(inc);expense.textContent='−'+fmt(out);
+list.innerHTML=tx.length?tx.slice().reverse().map(x=>`<div class="item"><div class="left"><div class="icon">${x.type==='income'?'💰':x.cat[0]}</div><div><div class="name">${x.cat.slice(2)}</div><div class="date">${x.note||x.method} · ${x.date}</div></div></div><b class="${x.type==='income'?'green':'red'}">${x.type==='income'?'+':'−'}${fmt(x.amount)}</b></div>`).join(''):'<div class="empty">Hozircha operatsiya yo‘q.<br>＋ Kirim yoki Chiqim qo‘shing.</div>'}
+function openModal(t){type=t;modal.style.display='flex';modalTitle.textContent=t==='income'?'Kirim qo‘shish':'Chiqim qo‘shish';category.innerHTML=(t==='income'?['💰 Ish haqi','💵 Qo‘shimcha daromad','🎁 Sovg‘a','📦 Boshqa']:cats).map(x=>`<option>${x}</option>`).join('');amount.value='';note.value=''}
+function closeModal(){modal.style.display='none'}
+function saveTx(){let a=Number(amount.value);if(!a||a<=0){alert('Summani kiriting');return}tx.push({type,amount:a,cat:category.value,method:method.value,note:note.value,date:new Date().toLocaleDateString('uz-UZ')});localStorage.setItem('tx',JSON.stringify(tx));closeModal();render()}
+function showReport(){let inc=tx.filter(x=>x.type==='income').reduce((a,x)=>a+x.amount,0),out=tx.filter(x=>x.type==='expense').reduce((a,x)=>a+x.amount,0);alert('Hisobot\\n\\nKirim: '+fmt(inc)+'\\nChiqim: '+fmt(out)+'\\nBalans: '+fmt(inc-out))}
+function resetAll(){if(confirm('Barcha ma’lumotlar o‘chirilsinmi?')){tx=[];localStorage.removeItem('tx');render()}}
+render();
+</script>
+</body></html>
