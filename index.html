@@ -2,1002 +2,1160 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>Kirim-Chiqim V6.3</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
 
 :root{
- --bg:#f4f6fb;
- --card:#fff;
- --text:#17202a;
- --muted:#7b8490;
- --primary:#2563eb;
- --green:#16a34a;
- --red:#dc2626;
- --border:#e5e7eb;
- --soft:#eef2ff;
- --shadow:0 8px 25px rgba(15,23,42,.07);
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#17191c;
+  --muted:#777d87;
+  --border:#e7e9ee;
+  --primary:#111827;
+  --green:#18a957;
+  --red:#ef4444;
+  --blue:#3b82f6;
+  --purple:#8b5cf6;
+  --orange:#f59e0b;
+  --shadow:0 8px 25px rgba(0,0,0,.06);
 }
 
 body.dark{
- --bg:#0f172a;
- --card:#172033;
- --text:#f8fafc;
- --muted:#94a3b8;
- --border:#263449;
- --soft:#1e293b;
+  --bg:#111318;
+  --card:#1a1d23;
+  --text:#f5f5f5;
+  --muted:#9da3ae;
+  --border:#2b3039;
+  --primary:#ffffff;
+  --shadow:0 8px 25px rgba(0,0,0,.18);
 }
 
 body{
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
- background:var(--bg);
- color:var(--text);
- min-height:100vh;
- padding-bottom:85px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding-bottom:85px;
 }
 
-button,input,select{font-family:inherit}
-button{cursor:pointer;border:0}
-
-header{
- background:linear-gradient(135deg,#111827,#26364e);
- color:white;
- padding:20px 18px 25px;
- border-radius:0 0 28px 28px;
+button,
+input,
+select{
+  font-family:inherit;
 }
 
-.header-top{
- display:flex;
- justify-content:space-between;
- align-items:center;
+button{
+  border:none;
+  cursor:pointer;
 }
 
-.header-title{
- font-size:22px;
- font-weight:800;
-}
-
-.header-sub{
- font-size:12px;
- opacity:.65;
- margin-top:4px;
-}
-
-.header-icon{
- width:42px;
- height:42px;
- border-radius:14px;
- background:rgba(255,255,255,.12);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:20px;
+.app{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  padding:18px 15px 25px;
 }
 
 .page{
- display:none;
- padding:16px;
+  display:none;
 }
 
-.page.active{display:block}
-
-/* HOME */
-
-.home-balance-card{
- background:linear-gradient(135deg,#111827,#26364e);
- color:white;
- border-radius:25px;
- padding:22px;
- box-shadow:0 12px 30px rgba(15,23,42,.18);
- position:relative;
- overflow:hidden;
+.page.active{
+  display:block;
 }
 
-.home-balance-card:after{
- content:"";
- position:absolute;
- width:180px;
- height:180px;
- border-radius:50%;
- background:rgba(255,255,255,.06);
- right:-80px;
- top:-80px;
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
 }
 
-.home-balance-label{
- font-size:13px;
- opacity:.65;
+.header h2{
+  font-size:24px;
+  font-weight:800;
 }
 
-.home-balance-card h1{
- font-size:34px;
- margin:8px 0 18px;
+.header p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
 }
 
-.balance-bottom{
- display:flex;
- justify-content:space-between;
- align-items:center;
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  font-size:20px;
 }
 
-.balance-status{
- font-size:12px;
- background:rgba(255,255,255,.1);
- padding:7px 11px;
- border-radius:10px;
+.balance{
+  background:var(--primary);
+  color:var(--card);
+  border-radius:25px;
+  padding:24px 22px;
+  margin-bottom:15px;
+  box-shadow:var(--shadow);
 }
 
-.balance-date{
- font-size:11px;
- opacity:.55;
+.balance small{
+  opacity:.65;
+  font-size:13px;
 }
 
-.home-stats{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
- margin-top:14px;
+.balance h1{
+  font-size:31px;
+  margin-top:8px;
+  font-weight:800;
+  word-break:break-word;
 }
 
-.home-stat-card{
- background:var(--card);
- border:1px solid var(--border);
- border-radius:20px;
- padding:16px;
- box-shadow:var(--shadow);
+.cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:20px;
 }
 
-.stat-top{
- display:flex;
- justify-content:space-between;
- align-items:center;
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:17px;
+  box-shadow:var(--shadow);
 }
 
-.stat-icon{
- width:36px;
- height:36px;
- border-radius:12px;
- display:flex;
- justify-content:center;
- align-items:center;
- font-size:17px;
+.card small{
+  color:var(--muted);
+  display:block;
+  margin-bottom:8px;
+  font-size:12px;
 }
 
-.stat-icon.income{background:#eaf8ef}
-.stat-icon.expense{background:#fff0f0}
-
-.stat-title{
- font-size:11px;
- color:var(--muted);
+.card strong{
+  font-size:17px;
+  word-break:break-word;
 }
 
-.home-stat-card strong{
- display:block;
- margin-top:9px;
- font-size:17px;
+.income{
+  color:var(--green);
 }
 
-.income-text{color:var(--green)}
-.expense-text{color:var(--red)}
-
-.home-section{margin-top:22px}
-
-.home-section-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:11px;
+.expense{
+  color:var(--red);
 }
 
-.home-section-title{
- font-size:18px;
- font-weight:800;
+.section-title{
+  font-size:17px;
+  font-weight:800;
+  margin:20px 2px 11px;
 }
 
-.home-section-link{
- font-size:12px;
- color:var(--primary);
- font-weight:700;
+.wallet-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
-.home-wallets{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:11px;
+.wallet{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:16px;
+  box-shadow:var(--shadow);
 }
 
-.home-wallet-card{
- background:var(--card);
- border:1px solid var(--border);
- border-radius:19px;
- padding:15px;
- box-shadow:var(--shadow);
-}
-
-.home-wallet-top{
- display:flex;
- align-items:center;
- gap:9px;
-}
-
-.wallet-icon{
- width:35px;
- height:35px;
- border-radius:11px;
- background:var(--soft);
- display:flex;
- justify-content:center;
- align-items:center;
- font-size:17px;
+.wallet-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
 }
 
 .wallet-name{
- font-size:12px;
- color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  font-weight:700;
 }
 
-.home-wallet-card strong{
- display:block;
- margin-top:12px;
- font-size:15px;
+.wallet-icon{
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg);
+  font-size:18px;
 }
 
-.home-transactions{
- background:var(--card);
- border:1px solid var(--border);
- border-radius:21px;
- overflow:hidden;
- box-shadow:var(--shadow);
+.wallet strong{
+  font-size:16px;
+  display:block;
+}
+
+.transfer-btn{
+  width:100%;
+  margin-top:12px;
+  height:48px;
+  border-radius:15px;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  font-weight:750;
+  font-size:14px;
+  box-shadow:var(--shadow);
 }
 
 .transaction{
- display:flex;
- align-items:center;
- gap:12px;
- padding:14px;
- border-bottom:1px solid var(--border);
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:10px;
 }
 
-.transaction:last-child{border-bottom:0}
-
 .transaction-icon{
- width:43px;
- height:43px;
- border-radius:14px;
- display:flex;
- justify-content:center;
- align-items:center;
- font-size:20px;
- flex-shrink:0;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  flex-shrink:0;
 }
 
 .transaction-info{
- min-width:0;
- flex:1;
+  flex:1;
+  min-width:0;
 }
 
 .transaction-title{
- font-size:14px;
- font-weight:700;
- white-space:nowrap;
- overflow:hidden;
- text-overflow:ellipsis;
+  font-size:14px;
+  font-weight:750;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .transaction-meta{
- margin-top:4px;
- font-size:11px;
- color:var(--muted);
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
 }
 
 .transaction-amount{
- font-size:14px;
- font-weight:800;
- white-space:nowrap;
+  font-weight:800;
+  font-size:14px;
+  white-space:nowrap;
 }
 
-.amount-income{color:var(--green)}
-.amount-expense{color:var(--red)}
+.amount-income{
+  color:var(--green);
+}
+
+.amount-expense{
+  color:var(--red);
+}
+
+.amount-transfer{
+  color:var(--blue);
+}
 
 .empty{
- padding:25px;
- text-align:center;
- color:var(--muted);
- font-size:13px;
+  background:var(--card);
+  border:1px dashed var(--border);
+  color:var(--muted);
+  border-radius:18px;
+  padding:25px;
+  text-align:center;
+  font-size:14px;
 }
-
-/* REPORT */
-
-.period-tabs{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:7px;
- background:var(--card);
- padding:5px;
- border-radius:15px;
- margin-bottom:15px;
-}
-
-.period-tabs button{
- background:transparent;
- color:var(--muted);
- padding:10px 4px;
- border-radius:11px;
- font-size:12px;
- font-weight:700;
-}
-
-.period-tabs button.active{
- background:var(--primary);
- color:white;
-}
-
-.report-main{
- background:var(--card);
- border:1px solid var(--border);
- border-radius:20px;
- padding:18px;
- box-shadow:var(--shadow);
-}
-
-.report-title{
- font-size:16px;
- font-weight:800;
- margin-bottom:14px;
-}
-
-.report-cards{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
-}
-
-.report-card{
- padding:14px;
- border-radius:15px;
- background:var(--soft);
-}
-
-.report-card small{
- color:var(--muted);
- font-size:11px;
-}
-
-.report-card strong{
- display:block;
- margin-top:6px;
- font-size:18px;
-}
-
-.chart-box{
- margin-top:16px;
- background:var(--card);
- border:1px solid var(--border);
- border-radius:20px;
- padding:17px;
-}
-
-.chart-title{
- font-size:14px;
- font-weight:800;
- margin-bottom:15px;
-}
-
-.bar-row{
- margin-bottom:12px;
-}
-
-.bar-label{
- display:flex;
- justify-content:space-between;
- font-size:11px;
- margin-bottom:5px;
-}
-
-.bar{
- height:9px;
- background:var(--soft);
- border-radius:20px;
- overflow:hidden;
-}
-
-.bar-fill{
- height:100%;
- background:var(--primary);
- border-radius:20px;
-}
-
-.day-chart{
- display:flex;
- align-items:flex-end;
- gap:7px;
- height:150px;
-}
-
-.day-column{
- flex:1;
- height:100%;
- display:flex;
- flex-direction:column;
- justify-content:flex-end;
- align-items:center;
- gap:4px;
-}
-
-.day-bar{
- width:100%;
- max-width:30px;
- background:var(--primary);
- border-radius:6px 6px 2px 2px;
- min-height:2px;
-}
-
-.day-name{
- font-size:9px;
- color:var(--muted);
-}
-
-/* ALL TRANSACTIONS */
-
-.search{
- width:100%;
- padding:13px 15px;
- border:1px solid var(--border);
- background:var(--card);
- color:var(--text);
- border-radius:15px;
- outline:none;
- margin-bottom:12px;
-}
-
-.list-card{
- background:var(--card);
- border:1px solid var(--border);
- border-radius:20px;
- overflow:hidden;
-}
-
-.delete-btn{
- background:transparent;
- color:var(--red);
- font-size:18px;
-}
-
-/* SETTINGS */
-
-.settings-card{
- background:var(--card);
- border:1px solid var(--border);
- border-radius:20px;
- overflow:hidden;
- box-shadow:var(--shadow);
-}
-
-.setting{
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:17px;
- border-bottom:1px solid var(--border);
-}
-
-.setting:last-child{border-bottom:0}
-
-.setting-info strong{
- display:block;
- font-size:14px;
-}
-
-.setting-info small{
- display:block;
- margin-top:4px;
- color:var(--muted);
- font-size:11px;
-}
-
-.setting button{
- background:var(--soft);
- color:var(--primary);
- padding:9px 13px;
- border-radius:10px;
- font-weight:700;
-}
-
-.danger button{
- color:var(--red);
- background:#fff0f0;
-}
-
-/* MODAL */
-
-.modal{
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.55);
- display:none;
- align-items:flex-end;
- justify-content:center;
- z-index:100;
-}
-
-.modal.show{display:flex}
-
-.modal-box{
- width:100%;
- max-width:520px;
- background:var(--card);
- color:var(--text);
- border-radius:25px 25px 0 0;
- padding:22px;
- max-height:90vh;
- overflow:auto;
-}
-
-.modal-header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:18px;
-}
-
-.modal-header h2{
- font-size:20px;
-}
-
-.close{
- width:35px;
- height:35px;
- border-radius:50%;
- background:var(--soft);
- color:var(--text);
- font-size:20px;
-}
-
-.type-buttons{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
- margin-bottom:15px;
-}
-
-.type-btn{
- padding:13px;
- border-radius:13px;
- background:var(--soft);
- color:var(--muted);
- font-weight:800;
-}
-
-.type-btn.active.income{
- background:#dcfce7;
- color:var(--green);
-}
-
-.type-btn.active.expense{
- background:#fee2e2;
- color:var(--red);
-}
-
-.field{
- margin-bottom:13px;
-}
-
-.field label{
- display:block;
- font-size:11px;
- color:var(--muted);
- margin-bottom:6px;
-}
-
-.field input,
-.field select{
- width:100%;
- padding:13px;
- border:1px solid var(--border);
- background:var(--bg);
- color:var(--text);
- border-radius:13px;
- outline:none;
-}
-
-.save-btn{
- width:100%;
- padding:14px;
- border-radius:14px;
- background:var(--primary);
- color:white;
- font-weight:800;
- font-size:15px;
- margin-top:5px;
-}
-
-/* ADD BUTTON */
 
 .add-btn{
- position:fixed;
- right:20px;
- bottom:78px;
- width:58px;
- height:58px;
- border-radius:20px;
- background:var(--primary);
- color:white;
- font-size:28px;
- box-shadow:0 10px 25px rgba(37,99,235,.35);
- z-index:20;
+  position:fixed;
+  right:18px;
+  bottom:85px;
+  width:58px;
+  height:58px;
+  border-radius:19px;
+  background:var(--primary);
+  color:var(--card);
+  font-size:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  z-index:20;
 }
 
-/* NAV */
-
 .bottom-nav{
- position:fixed;
- bottom:0;
- left:0;
- right:0;
- height:68px;
- background:var(--card);
- border-top:1px solid var(--border);
- display:grid;
- grid-template-columns:repeat(4,1fr);
- z-index:30;
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:10px;
+  width:calc(100% - 20px);
+  max-width:680px;
+  height:65px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  box-shadow:0 10px 35px rgba(0,0,0,.12);
+  z-index:30;
 }
 
 .nav-btn{
- background:transparent;
- color:var(--muted);
- display:flex;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- gap:4px;
- font-size:10px;
+  background:none;
+  color:var(--muted);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:10px;
 }
 
-.nav-btn span{
- font-size:21px;
+.nav-btn span:first-child{
+  font-size:20px;
 }
 
 .nav-btn.active{
- color:var(--primary);
- font-weight:800;
+  color:var(--text);
+  font-weight:800;
 }
 
-/* TOAST */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.52);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
+  padding:10px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:700px;
+  max-height:92vh;
+  overflow-y:auto;
+  background:var(--card);
+  border-radius:27px 27px 18px 18px;
+  padding:21px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modal-head h3{
+  font-size:21px;
+}
+
+.close-btn{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:var(--bg);
+  color:var(--text);
+  font-size:20px;
+}
+
+.type-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:var(--bg);
+  border-radius:15px;
+  padding:4px;
+  margin-bottom:15px;
+}
+
+.type-switch button{
+  height:43px;
+  border-radius:12px;
+  background:transparent;
+  color:var(--muted);
+  font-weight:750;
+}
+
+.type-switch button.active{
+  background:var(--card);
+  color:var(--text);
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group label{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.form-control{
+  width:100%;
+  height:49px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  outline:none;
+  padding:0 14px;
+  font-size:15px;
+}
+
+.form-control:focus{
+  border-color:var(--blue);
+}
+
+.primary-btn{
+  width:100%;
+  height:50px;
+  border-radius:15px;
+  background:var(--primary);
+  color:var(--card);
+  font-weight:800;
+  font-size:15px;
+  margin-top:4px;
+}
+
+.transfer-info{
+  background:var(--bg);
+  border-radius:15px;
+  padding:13px;
+  margin-bottom:14px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.period-tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-bottom:15px;
+}
+
+.period-btn{
+  height:40px;
+  border-radius:12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+
+.period-btn.active{
+  background:var(--primary);
+  color:var(--card);
+  border-color:var(--primary);
+}
+
+.report-summary{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.report-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:15px;
+}
+
+.report-box small{
+  color:var(--muted);
+  display:block;
+  font-size:11px;
+  margin-bottom:6px;
+}
+
+.report-box strong{
+  font-size:17px;
+}
+
+.chart-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:17px;
+  margin-bottom:13px;
+}
+
+.chart-title{
+  font-weight:800;
+  margin-bottom:14px;
+  font-size:15px;
+}
+
+.bar-row{
+  margin-bottom:13px;
+}
+
+.bar-head{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin-bottom:6px;
+}
+
+.bar-bg{
+  height:8px;
+  border-radius:10px;
+  background:var(--bg);
+  overflow:hidden;
+}
+
+.bar{
+  height:100%;
+  border-radius:10px;
+  background:var(--primary);
+}
+
+.search-box{
+  margin-bottom:14px;
+}
+
+.search-box input{
+  width:100%;
+  height:48px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  padding:0 15px;
+  outline:none;
+}
+
+.settings-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.setting-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.setting-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.setting-icon{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+}
+
+.setting-title{
+  font-size:14px;
+  font-weight:750;
+}
+
+.setting-desc{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.switch{
+  width:48px;
+  height:28px;
+  border-radius:20px;
+  background:#c9cdd4;
+  position:relative;
+}
+
+.switch.on{
+  background:#111827;
+}
+
+.switch-dot{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:22px;
+  height:22px;
+  background:white;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.switch.on .switch-dot{
+  left:23px;
+}
+
+.danger-btn{
+  width:100%;
+  height:48px;
+  border-radius:15px;
+  background:#fee2e2;
+  color:#dc2626;
+  font-weight:800;
+}
 
 .toast{
- position:fixed;
- left:50%;
- bottom:90px;
- transform:translateX(-50%) translateY(20px);
- background:#111827;
- color:white;
- padding:12px 18px;
- border-radius:13px;
- font-size:13px;
- opacity:0;
- pointer-events:none;
- transition:.25s;
- z-index:200;
+  position:fixed;
+  left:50%;
+  bottom:90px;
+  transform:translateX(-50%) translateY(20px);
+  background:#17191c;
+  color:white;
+  padding:12px 17px;
+  border-radius:13px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:200;
+  white-space:nowrap;
 }
 
 .toast.show{
- opacity:1;
- transform:translateX(-50%) translateY(0);
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-/* MOBILE */
+.transfer-arrow{
+  text-align:center;
+  font-size:23px;
+  margin:-4px 0 9px;
+  color:var(--blue);
+}
 
-@media(max-width:400px){
- .home-balance-card h1{
-   font-size:29px;
- }
- .home-wallets{
-   grid-template-columns:1fr 1fr;
- }
+@media(max-width:380px){
+  .wallet-grid{
+    grid-template-columns:1fr;
+  }
+
+  .period-tabs{
+    gap:4px;
+  }
+
+  .period-btn{
+    font-size:11px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
- <div class="header-top">
-  <div>
-   <div class="header-title">Kirim-Chiqim</div>
-   <div class="header-sub">Shaxsiy moliyangiz nazoratda</div>
-  </div>
-  <div class="header-icon">💰</div>
- </div>
-</header>
+<div class="app">
 
-<!-- HOME -->
-<section id="homePage" class="page active">
+  <!-- HOME -->
+  <section id="homePage" class="page active">
 
- <div class="home-balance-card">
-  <div class="home-balance-label">Umumiy balans</div>
-  <h1 id="balance">0 so'm</h1>
+    <div class="header">
+      <div>
+        <h2>Kirim-Chiqim</h2>
+        <p>Moliyangiz nazorat ostida</p>
+      </div>
+    </div>
 
-  <div class="balance-bottom">
-   <div class="balance-status">💳 Barcha hamyonlar</div>
-   <div class="balance-date" id="todayText"></div>
-  </div>
- </div>
+    <div class="balance">
+      <small>Umumiy balans</small>
+      <h1 id="balance">0 so'm</h1>
+    </div>
 
- <div class="home-stats">
+    <div class="cards">
+      <div class="card">
+        <small>💚 Jami kirim</small>
+        <strong class="income" id="totalIncome">0 so'm</strong>
+      </div>
 
-  <div class="home-stat-card">
-   <div class="stat-top">
-    <div class="stat-title">Jami kirim</div>
-    <div class="stat-icon income">↗️</div>
-   </div>
-   <strong class="income-text" id="totalIncome">0 so'm</strong>
-  </div>
+      <div class="card">
+        <small>❤️ Jami chiqim</small>
+        <strong class="expense" id="totalExpense">0 so'm</strong>
+      </div>
+    </div>
 
-  <div class="home-stat-card">
-   <div class="stat-top">
-    <div class="stat-title">Jami chiqim</div>
-    <div class="stat-icon expense">↘️</div>
-   </div>
-   <strong class="expense-text" id="totalExpense">0 so'm</strong>
-  </div>
+    <div class="section-title">💳 Hamyonlar</div>
 
- </div>
+    <div id="homeWallets"></div>
 
- <div class="home-section">
+    <!-- FAQAT YANGI QO'SHILGAN FUNKSIYA -->
+    <button class="transfer-btn" onclick="openTransferModal()">
+      💸 Pul o‘tkazish
+    </button>
 
-  <div class="home-section-head">
-   <div class="home-section-title">💳 Hamyonlar</div>
-  </div>
+    <div class="section-title">🧾 So‘nggi operatsiyalar</div>
 
-  <div id="homeWallets" class="home-wallets"></div>
+    <div id="recentTransactions"></div>
 
- </div>
-
- <div class="home-section">
-
-  <div class="home-section-head">
-   <div class="home-section-title">🧾 So‘nggi operatsiyalar</div>
-   <div class="home-section-link" onclick="navigate('allPage')">Barchasi</div>
-  </div>
-
-  <div id="recentTransactions" class="home-transactions"></div>
-
- </div>
-
-</section>
+  </section>
 
 
-<!-- REPORT -->
-<section id="reportPage" class="page">
+  <!-- REPORT -->
+  <section id="reportPage" class="page">
 
- <div class="period-tabs">
-  <button id="periodDay" onclick="setReportPeriod('day')">1 kun</button>
-  <button id="periodWeek" onclick="setReportPeriod('week')">1 hafta</button>
-  <button id="periodMonth" onclick="setReportPeriod('month')">1 oy</button>
-  <button id="periodYear" onclick="setReportPeriod('year')">1 yil</button>
- </div>
+    <div class="header">
+      <div>
+        <h2>Hisobot</h2>
+        <p>Moliyaviy holatingiz</p>
+      </div>
+    </div>
 
- <div class="report-main">
+    <div class="period-tabs">
+      <button class="period-btn active" data-period="day" onclick="setReportPeriod('day')">
+        1 kun
+      </button>
 
-  <div class="report-title">📊 Hisobot</div>
+      <button class="period-btn" data-period="week" onclick="setReportPeriod('week')">
+        1 hafta
+      </button>
 
-  <div class="report-cards">
+      <button class="period-btn" data-period="month" onclick="setReportPeriod('month')">
+        1 oy
+      </button>
 
-   <div class="report-card">
-    <small>Jami kirim</small>
-    <strong class="income-text" id="reportIncome">0 so'm</strong>
-   </div>
+      <button class="period-btn" data-period="year" onclick="setReportPeriod('year')">
+        1 yil
+      </button>
+    </div>
 
-   <div class="report-card">
-    <small>Jami chiqim</small>
-    <strong class="expense-text" id="reportExpense">0 so'm</strong>
-   </div>
+    <div class="report-summary">
 
-   <div class="report-card">
-    <small>Balans o‘zgarishi</small>
-    <strong id="reportBalance">0 so'm</strong>
-   </div>
+      <div class="report-box">
+        <small>Kirim</small>
+        <strong class="income" id="reportIncome">0 so'm</strong>
+      </div>
 
-   <div class="report-card">
-    <small>Operatsiyalar</small>
-    <strong id="reportCount">0</strong>
-   </div>
+      <div class="report-box">
+        <small>Chiqim</small>
+        <strong class="expense" id="reportExpense">0 so'm</strong>
+      </div>
 
-  </div>
+    </div>
 
- </div>
+    <div class="chart-box">
+      <div class="chart-title">📊 Chiqimlar</div>
+      <div id="dayExpenseChart"></div>
+    </div>
 
- <div class="chart-box">
-  <div class="chart-title">📅 Chiqimlar</div>
-  <div id="dayExpenseChart" class="day-chart"></div>
- </div>
+    <div class="chart-box">
+      <div class="chart-title">📂 Kategoriyalar</div>
+      <div id="categoryChart"></div>
+    </div>
 
- <div class="chart-box">
-  <div class="chart-title">🏷 Kategoriyalar</div>
-  <div id="categoryChart"></div>
- </div>
+    <div class="chart-box">
+      <div class="chart-title">💳 To‘lov usullari</div>
+      <div id="paymentChart"></div>
+    </div>
 
- <div class="chart-box">
-  <div class="chart-title">💳 To‘lov turi</div>
-  <div id="paymentChart"></div>
- </div>
+    <div class="chart-box">
+      <div class="chart-title">👛 Hamyonlar</div>
+      <div id="walletChart"></div>
+    </div>
 
- <div class="chart-box">
-  <div class="chart-title">👛 Hamyonlar</div>
-  <div id="walletChart"></div>
- </div>
-
-</section>
-
-
-<!-- ALL -->
-<section id="allPage" class="page">
-
- <input
-  id="searchInput"
-  class="search"
-  placeholder="🔎 Operatsiyani qidirish..."
-  oninput="renderAllTransactions()"
- >
-
- <div id="allTransactions" class="list-card"></div>
-
-</section>
+  </section>
 
 
-<!-- SETTINGS -->
-<section id="settingsPage" class="page">
+  <!-- ALL TRANSACTIONS -->
+  <section id="allPage" class="page">
 
- <div class="settings-card">
+    <div class="header">
+      <div>
+        <h2>Operatsiyalar</h2>
+        <p>Barcha kirim va chiqimlar</p>
+      </div>
+    </div>
 
-  <div class="setting">
-   <div class="setting-info">
-    <strong>🌙 Tungi rejim</strong>
-    <small>Ilova ko‘rinishini o‘zgartirish</small>
-   </div>
-   <button onclick="toggleTheme()">O‘zgartirish</button>
-  </div>
+    <div class="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Qidirish..."
+        oninput="renderAllTransactions()"
+      >
+    </div>
 
-  <div class="setting">
-   <div class="setting-info">
-    <strong>💾 Backup</strong>
-    <small>Ma’lumotlarni faylga saqlash</small>
-   </div>
-   <button onclick="backupData()">Saqlash</button>
-  </div>
+    <div id="allTransactions"></div>
 
-  <div class="setting">
-   <div class="setting-info">
-    <strong>📂 Restore</strong>
-    <small>Oldingi ma’lumotlarni tiklash</small>
-   </div>
-   <button onclick="document.getElementById('restoreFile').click()">Tiklash</button>
-  </div>
-
-  <div class="setting danger">
-   <div class="setting-info">
-    <strong>🗑 Ma’lumotlarni o‘chirish</strong>
-    <small>Barcha operatsiyalar o‘chiriladi</small>
-   </div>
-   <button onclick="clearData()">O‘chirish</button>
-  </div>
-
- </div>
-
- <input
-  type="file"
-  id="restoreFile"
-  accept=".json"
-  style="display:none"
-  onchange="restoreData(event)"
- >
-
-</section>
+  </section>
 
 
-<!-- ADD BUTTON -->
+  <!-- SETTINGS -->
+  <section id="settingsPage" class="page">
+
+    <div class="header">
+      <div>
+        <h2>Sozlamalar</h2>
+        <p>Ilova sozlamalari</p>
+      </div>
+    </div>
+
+    <div class="settings-list">
+
+      <div class="setting-item">
+
+        <div class="setting-left">
+
+          <div class="setting-icon">🌙</div>
+
+          <div>
+            <div class="setting-title">Tungi rejim</div>
+            <div class="setting-desc">Qorong‘i mavzudan foydalanish</div>
+          </div>
+
+        </div>
+
+        <div
+          id="themeSwitch"
+          class="switch"
+          onclick="toggleTheme()"
+        >
+          <div class="switch-dot"></div>
+        </div>
+
+      </div>
+
+
+      <div
+        class="setting-item"
+        onclick="backupData()"
+      >
+
+        <div class="setting-left">
+
+          <div class="setting-icon">💾</div>
+
+          <div>
+            <div class="setting-title">Backup</div>
+            <div class="setting-desc">Ma'lumotlarni saqlash</div>
+          </div>
+
+        </div>
+
+        <div>›</div>
+
+      </div>
+
+
+      <div
+        class="setting-item"
+        onclick="document.getElementById('restoreFile').click()"
+      >
+
+        <div class="setting-left">
+
+          <div class="setting-icon">📥</div>
+
+          <div>
+            <div class="setting-title">Restore</div>
+            <div class="setting-desc">Saqlangan ma'lumotni tiklash</div>
+          </div>
+
+        </div>
+
+        <div>›</div>
+
+      </div>
+
+      <input
+        type="file"
+        id="restoreFile"
+        accept=".json"
+        style="display:none"
+        onchange="restoreData(event)"
+      >
+
+
+      <div
+        class="setting-item"
+        onclick="clearData()"
+      >
+
+        <div class="setting-left">
+
+          <div class="setting-icon">🗑️</div>
+
+          <div>
+            <div class="setting-title">Ma'lumotlarni tozalash</div>
+            <div class="setting-desc">Barcha operatsiyalarni o‘chirish</div>
+          </div>
+
+        </div>
+
+        <div>›</div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- ADD TRANSACTION BUTTON -->
 <button class="add-btn" onclick="openModal()">+</button>
 
 
-<!-- NAV -->
-<nav class="bottom-nav">
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
 
- <button class="nav-btn active" id="navHome" onclick="navigate('homePage')">
-  <span>🏠</span>
-  Bosh sahifa
- </button>
-
- <button class="nav-btn" id="navReport" onclick="navigate('reportPage')">
-  <span>📊</span>
-  Hisobot
- </button>
-
- <button class="nav-btn" id="navAll" onclick="navigate('allPage')">
-  <span>🧾</span>
-  Operatsiyalar
- </button>
-
- <button class="nav-btn" id="navSettings" onclick="navigate('settingsPage')">
-  <span>⚙️</span>
-  Sozlamalar
- </button>
-
-</nav>
-
-
-<!-- MODAL -->
-<div id="modal" class="modal">
-
- <div class="modal-box">
-
-  <div class="modal-header">
-   <h2>Yangi operatsiya</h2>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
-
-  <div class="type-buttons">
-
-   <button
-    id="incomeBtn"
-    class="type-btn active income"
-    onclick="setType('income')">
-    💚 Kirim
-   </button>
-
-   <button
-    id="expenseBtn"
-    class="type-btn"
-    onclick="setType('expense')">
-    ❤️ Chiqim
-   </button>
-
-  </div>
-
-  <div class="field">
-   <label>Summa</label>
-   <input
-    id="amount"
-    type="number"
-    inputmode="decimal"
-    placeholder="Masalan: 500000"
-   >
-  </div>
-
-  <div class="field">
-   <label>Izoh</label>
-   <input
-    id="note"
-    type="text"
-    placeholder="Masalan: Ish haqi"
-   >
-  </div>
-
-  <div class="field">
-   <label>Kategoriya</label>
-
-   <select id="category"></select>
-
-  </div>
-
-  <div class="field">
-   <label>To‘lov turi</label>
-
-   <select id="payment">
-    <option value="Naqd">💵 Naqd</option>
-    <option value="Uzcard">💳 Uzcard</option>
-    <option value="Humo">💳 Humo</option>
-    <option value="Bank">🏦 Bank</option>
-   </select>
-
-  </div>
-
-  <button class="save-btn" onclick="saveTransaction()">
-   Saqlash
+  <button class="nav-btn active" onclick="navigate('home',this)">
+    <span>🏠</span>
+    <span>Bosh sahifa</span>
   </button>
 
- </div>
+  <button class="nav-btn" onclick="navigate('report',this)">
+    <span>📊</span>
+    <span>Hisobot</span>
+  </button>
+
+  <button class="nav-btn" onclick="navigate('all',this)">
+    <span>🧾</span>
+    <span>Operatsiyalar</span>
+  </button>
+
+  <button class="nav-btn" onclick="navigate('settings',this)">
+    <span>⚙️</span>
+    <span>Sozlamalar</span>
+  </button>
+
+</div>
+
+
+<!-- ADD TRANSACTION MODAL -->
+<div id="modal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h3>Yangi operatsiya</h3>
+
+      <button class="close-btn" onclick="closeModal()">
+        ×
+      </button>
+    </div>
+
+
+    <div class="type-switch">
+
+      <button
+        id="expenseTypeBtn"
+        class="active"
+        onclick="setType('expense')"
+      >
+        ❤️ Chiqim
+      </button>
+
+      <button
+        id="incomeTypeBtn"
+        onclick="setType('income')"
+      >
+        💚 Kirim
+      </button>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Summa</label>
+
+      <input
+        id="amount"
+        class="form-control"
+        type="number"
+        inputmode="decimal"
+        placeholder="Masalan: 50000"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Izoh</label>
+
+      <input
+        id="note"
+        class="form-control"
+        type="text"
+        placeholder="Masalan: Tushlik"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Kategoriya</label>
+
+      <select
+        id="category"
+        class="form-control"
+      ></select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>To‘lov usuli</label>
+
+      <select
+        id="payment"
+        class="form-control"
+      >
+        <option value="Naqd">💵 Naqd</option>
+        <option value="Uzcard">💳 Uzcard</option>
+        <option value="Humo">💳 Humo</option>
+        <option value="Bank">🏦 Bank</option>
+      </select>
+
+    </div>
+
+
+    <button
+      class="primary-btn"
+      onclick="saveTransaction()"
+    >
+      Saqlash
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- TRANSFER MODAL -->
+<div id="transferModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3>💸 Pul o‘tkazish</h3>
+
+      <button
+        class="close-btn"
+        onclick="closeTransferModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="transfer-info">
+      Pul bir hamyondan boshqasiga o‘tkaziladi.
+      <br>
+      Bu operatsiya <b>umumiy balansni o‘zgartirmaydi.</b>
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Qayerdan</label>
+
+      <select
+        id="fromWallet"
+        class="form-control"
+      >
+        <option value="Naqd">💵 Naqd</option>
+        <option value="Uzcard">💳 Uzcard</option>
+        <option value="Humo">💳 Humo</option>
+        <option value="Bank">🏦 Bank</option>
+      </select>
+
+    </div>
+
+
+    <div class="transfer-arrow">
+      ↓
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Qayerga</label>
+
+      <select
+        id="toWallet"
+        class="form-control"
+      >
+        <option value="Uzcard">💳 Uzcard</option>
+        <option value="Naqd">💵 Naqd</option>
+        <option value="Humo">💳 Humo</option>
+        <option value="Bank">🏦 Bank</option>
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Summa</label>
+
+      <input
+        id="transferAmount"
+        class="form-control"
+        type="number"
+        inputmode="decimal"
+        placeholder="Masalan: 500000"
+      >
+
+    </div>
+
+
+    <button
+      class="primary-btn"
+      onclick="saveTransfer()"
+    >
+      O‘tkazish
+    </button>
+
+  </div>
 
 </div>
 
@@ -1007,1340 +1165,1905 @@ header{
 
 <script>
 
-/* ================= DATA ================= */
-
 const STORAGE_KEY = "kirimChiqimV6";
 
 let data = {
- transactions:[]
+  transactions: []
 };
 
-let currentType = "income";
-let reportPeriod = "month";
+let currentType = "expense";
+
+let reportPeriod = "day";
 
 
-/* ================= CATEGORIES ================= */
+/* =========================
+   KATEGORIYALAR
+========================= */
 
-/*
- KIRIMDA FAQAT:
- Oylik
- Boshqa
+const expenseCategories = {
 
- CHIQIMDA:
- Oziq-ovqat
- Transport
- Uy
- Kiyim
- Sog‘liq
- Ko‘ngilochar
- Ta'lim
- Kafe
- Boshqa
-*/
+  "Oziq-ovqat":"🍔",
+  "Transport":"🚗",
+  "Uy":"🏠",
+  "Kiyim":"👕",
+  "Sog‘liq":"💊",
+  "Ko‘ngilochar":"🎮",
+  "Ta'lim":"📚",
+  "Kafe":"☕",
+  "Boshqa":"📦"
 
-const incomeCategories = [
- "Oylik",
- "Boshqa"
-];
-
-const expenseCategories = [
- "Oziq-ovqat",
- "Transport",
- "Uy",
- "Kiyim",
- "Sog‘liq",
- "Ko‘ngilochar",
- "Ta'lim",
- "Kafe",
- "Boshqa"
-];
-
-
-const categoryIcons = {
- "Oylik":"💼",
- "Oziq-ovqat":"🍔",
- "Transport":"🚗",
- "Uy":"🏠",
- "Kiyim":"👕",
- "Sog‘liq":"💊",
- "Ko‘ngilochar":"🎮",
- "Ta'lim":"📚",
- "Kafe":"☕",
- "Boshqa":"📦"
 };
+
+
+const incomeCategories = {
+
+  "Oylik":"💼",
+  "Boshqa":"📦"
+
+};
+
 
 const paymentIcons = {
- "Naqd":"💵",
- "Uzcard":"💳",
- "Humo":"💳",
- "Bank":"🏦"
-};
 
-const walletIcons = {
- "Naqd":"💵",
- "Uzcard":"💳",
- "Humo":"💳",
- "Bank":"🏦"
+  "Naqd":"💵",
+  "Uzcard":"💳",
+  "Humo":"💳",
+  "Bank":"🏦"
+
 };
 
 
-/* ================= LOAD / SAVE ================= */
+const walletNames = [
+  "Naqd",
+  "Uzcard",
+  "Humo",
+  "Bank"
+];
+
+
+/* =========================
+   MONEY
+========================= */
+
+function money(value){
+
+  value = Number(value) || 0;
+
+  return value
+    .toLocaleString("uz-UZ")
+    .replace(/,/g," ")
+    + " so'm";
+
+}
+
+
+/* =========================
+   LOAD / SAVE
+========================= */
 
 function loadData(){
 
- try{
+  try{
 
-  const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(STORAGE_KEY);
 
-  if(saved){
+    if(saved){
 
-   const parsed = JSON.parse(saved);
+      const parsed = JSON.parse(saved);
 
-   if(parsed && Array.isArray(parsed.transactions)){
-    data = parsed;
-   }
+      if(parsed && Array.isArray(parsed.transactions)){
+
+        data = parsed;
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    data = {
+      transactions:[]
+    };
 
   }
-
- }catch(e){
-
-  console.log(e);
-
- }
 
 }
 
 
 function saveData(){
 
- localStorage.setItem(
-  STORAGE_KEY,
-  JSON.stringify(data)
- );
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
 
 }
 
 
-/* ================= MONEY ================= */
+/* =========================
+   TOTALS
+========================= */
 
-function money(value){
+function getTotals(){
 
- value = Number(value) || 0;
+  let income = 0;
+  let expense = 0;
 
- return new Intl.NumberFormat("uz-UZ").format(value) + " so'm";
+  data.transactions.forEach(t => {
+
+    const amount = Number(t.amount) || 0;
+
+    if(t.type === "income"){
+
+      income += amount;
+
+    }
+
+    else if(t.type === "expense"){
+
+      expense += amount;
+
+    }
+
+  });
+
+  return {
+    income,
+    expense,
+    balance: income - expense
+  };
 
 }
 
 
-/* ================= MODAL ================= */
+/* =========================
+   WALLETS
+========================= */
+
+function getWallets(){
+
+  const wallets = {
+
+    "Naqd":0,
+    "Uzcard":0,
+    "Humo":0,
+    "Bank":0
+
+  };
+
+
+  data.transactions.forEach(t => {
+
+    const amount = Number(t.amount) || 0;
+
+
+    /* KIRIM */
+
+    if(t.type === "income"){
+
+      if(wallets[t.payment] !== undefined){
+
+        wallets[t.payment] += amount;
+
+      }
+
+    }
+
+
+    /* CHIQIM */
+
+    else if(t.type === "expense"){
+
+      if(wallets[t.payment] !== undefined){
+
+        wallets[t.payment] -= amount;
+
+      }
+
+    }
+
+
+    /* PUL O'TKAZISH */
+
+    else if(t.type === "transfer"){
+
+      if(
+        wallets[t.from] !== undefined &&
+        wallets[t.to] !== undefined
+      ){
+
+        wallets[t.from] -= amount;
+
+        wallets[t.to] += amount;
+
+      }
+
+    }
+
+  });
+
+
+  return wallets;
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
 
 function openModal(){
 
- document.getElementById("modal").classList.add("show");
+  document.getElementById("modal").classList.add("show");
 
- document.getElementById("amount").value="";
- document.getElementById("note").value="";
-
- setType("income");
+  setType(currentType);
 
 }
 
 
 function closeModal(){
 
- document.getElementById("modal").classList.remove("show");
+  document.getElementById("modal").classList.remove("show");
 
 }
 
 
-/* ================= TYPE ================= */
+/* =========================
+   TYPE
+========================= */
 
 function setType(type){
 
- currentType = type;
+  currentType = type;
 
- const incomeBtn =
-  document.getElementById("incomeBtn");
 
- const expenseBtn =
-  document.getElementById("expenseBtn");
+  const expenseBtn =
+    document.getElementById("expenseTypeBtn");
 
- incomeBtn.classList.remove("active");
- expenseBtn.classList.remove("active");
+  const incomeBtn =
+    document.getElementById("incomeTypeBtn");
 
- if(type === "income"){
-  incomeBtn.classList.add("active");
- }else{
-  expenseBtn.classList.add("active");
- }
 
- updateCategories();
+  expenseBtn.classList.toggle(
+    "active",
+    type === "expense"
+  );
+
+  incomeBtn.classList.toggle(
+    "active",
+    type === "income"
+  );
+
+
+  const category =
+    document.getElementById("category");
+
+
+  category.innerHTML = "";
+
+
+  const categories =
+    type === "income"
+      ? incomeCategories
+      : expenseCategories;
+
+
+  Object.entries(categories).forEach(
+    ([name,icon]) => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = name;
+
+      option.textContent =
+        icon + " " + name;
+
+      category.appendChild(option);
+
+    }
+  );
 
 }
 
 
-function updateCategories(){
-
- const select =
-  document.getElementById("category");
-
- const categories =
-  currentType === "income"
-   ? incomeCategories
-   : expenseCategories;
-
- select.innerHTML = "";
-
- categories.forEach(cat => {
-
-  const option =
-   document.createElement("option");
-
-  option.value = cat;
-
-  option.textContent =
-   categoryIcons[cat] + " " + cat;
-
-  select.appendChild(option);
-
- });
-
-}
-
-
-/* ================= SAVE TRANSACTION ================= */
+/* =========================
+   SAVE TRANSACTION
+========================= */
 
 function saveTransaction(){
 
- const amount =
-  Number(document.getElementById("amount").value);
-
- const note =
-  document.getElementById("note").value.trim();
-
- const category =
-  document.getElementById("category").value;
-
- const payment =
-  document.getElementById("payment").value;
-
-
- if(!amount || amount <= 0){
-
-  showToast("Summani kiriting");
-
-  return;
-
- }
-
-
- const transaction = {
-
-  id:Date.now(),
-
-  type:currentType,
-
-  amount:amount,
-
-  note:
-   note ||
-   (currentType === "income"
-    ? category
-    : category),
-
-  category:category,
-
-  payment:payment,
-
-  date:new Date().toISOString()
-
- };
-
-
- data.transactions.unshift(transaction);
-
- saveData();
-
- closeModal();
-
- renderAll();
-
- showToast(
-  currentType === "income"
-   ? "Kirim qo‘shildi ✅"
-   : "Chiqim qo‘shildi ✅"
- );
-
-}
-
-
-/* ================= TOTALS ================= */
-
-function getTotals(){
-
- let income = 0;
- let expense = 0;
-
- data.transactions.forEach(t => {
-
   const amount =
-   Number(t.amount) || 0;
+    Number(
+      document.getElementById("amount").value
+    );
 
-  if(t.type === "income"){
 
-   income += amount;
+  const note =
+    document.getElementById("note").value.trim();
 
-  }else if(t.type === "expense"){
 
-   expense += amount;
+  const category =
+    document.getElementById("category").value;
+
+
+  const payment =
+    document.getElementById("payment").value;
+
+
+  if(!amount || amount <= 0){
+
+    showToast("Summani kiriting");
+
+    return;
 
   }
 
- });
 
- return {
+  const transaction = {
 
-  income:income,
+    id:Date.now(),
 
-  expense:expense,
+    type:currentType,
 
-  balance:income-expense
+    amount:amount,
 
- };
+    note:note || "Operatsiya",
+
+    category:category,
+
+    payment:payment,
+
+    date:new Date().toISOString()
+
+  };
+
+
+  data.transactions.unshift(transaction);
+
+  saveData();
+
+  document.getElementById("amount").value = "";
+
+  document.getElementById("note").value = "";
+
+  closeModal();
+
+  renderAll();
+
+  showToast(
+    currentType === "income"
+      ? "Kirim qo‘shildi ✅"
+      : "Chiqim qo‘shildi ✅"
+  );
 
 }
 
 
-/* ================= WALLETS ================= */
+/* =========================
+   TRANSFER MODAL
+========================= */
 
-function getWallets(){
+function openTransferModal(){
 
- const wallets = {
-  "Naqd":0,
-  "Uzcard":0,
-  "Humo":0,
-  "Bank":0
- };
+  document
+    .getElementById("transferModal")
+    .classList.add("show");
 
- data.transactions.forEach(t => {
+
+  document.getElementById("transferAmount").value = "";
+
+}
+
+
+function closeTransferModal(){
+
+  document
+    .getElementById("transferModal")
+    .classList.remove("show");
+
+}
+
+
+/* =========================
+   SAVE TRANSFER
+========================= */
+
+function saveTransfer(){
+
+  const from =
+    document.getElementById("fromWallet").value;
+
+
+  const to =
+    document.getElementById("toWallet").value;
+
 
   const amount =
-   Number(t.amount) || 0;
+    Number(
+      document.getElementById("transferAmount").value
+    );
 
-  if(!(t.payment in wallets)) return;
 
-  if(t.type === "income"){
+  if(!amount || amount <= 0){
 
-   wallets[t.payment] += amount;
+    showToast("Summani kiriting");
 
-  }else{
-
-   wallets[t.payment] -= amount;
+    return;
 
   }
 
- });
 
- return wallets;
+  if(from === to){
+
+    showToast(
+      "Bir xil hamyonga o‘tkazib bo‘lmaydi"
+    );
+
+    return;
+
+  }
+
+
+  const wallets = getWallets();
+
+  const sourceBalance =
+    Number(wallets[from]) || 0;
+
+
+  if(sourceBalance < amount){
+
+    showToast(
+      "Hamyonda yetarli mablag‘ yo‘q"
+    );
+
+    return;
+
+  }
+
+
+  const transfer = {
+
+    id:Date.now(),
+
+    type:"transfer",
+
+    amount:amount,
+
+    from:from,
+
+    to:to,
+
+    category:"Pul o‘tkazmasi",
+
+    payment:from,
+
+    note:"Pul o‘tkazmasi",
+
+    date:new Date().toISOString()
+
+  };
+
+
+  data.transactions.unshift(transfer);
+
+  saveData();
+
+  closeTransferModal();
+
+  renderAll();
+
+  showToast(
+    "Pul muvaffaqiyatli o‘tkazildi ✅"
+  );
 
 }
 
 
-/* ================= HOME ================= */
+/* =========================
+   CATEGORY ICON
+========================= */
 
-function renderHome(){
+function getCategoryIcon(category){
 
- const totals = getTotals();
-
- document.getElementById("balance").textContent =
-  money(totals.balance);
-
- document.getElementById("totalIncome").textContent =
-  money(totals.income);
-
- document.getElementById("totalExpense").textContent =
-  money(totals.expense);
-
-
- document.getElementById("todayText").textContent =
-  new Date().toLocaleDateString("uz-UZ");
-
-
- renderWallets();
-
- renderRecent();
+  return (
+    expenseCategories[category] ||
+    incomeCategories[category] ||
+    "📦"
+  );
 
 }
 
 
-function renderWallets(){
+/* =========================
+   TRANSACTION HTML
+========================= */
 
- const wallets = getWallets();
+function transactionHTML(t){
 
- const container =
-  document.getElementById("homeWallets");
+  const amount =
+    Number(t.amount) || 0;
 
- container.innerHTML = "";
 
- Object.entries(wallets).forEach(([name,balance]) => {
+  /* TRANSFER */
 
-  container.innerHTML += `
+  if(t.type === "transfer"){
 
-   <div class="home-wallet-card">
+    return `
 
-    <div class="home-wallet-top">
+      <div class="transaction">
 
-     <div class="wallet-icon">
-      ${walletIcons[name]}
-     </div>
+        <div class="transaction-icon">
+          💸
+        </div>
 
-     <div class="wallet-name">
-      ${name}
-     </div>
+        <div class="transaction-info">
+
+          <div class="transaction-title">
+            Pul o‘tkazmasi
+          </div>
+
+          <div class="transaction-meta">
+            ${escapeHTML(t.from)}
+            →
+            ${escapeHTML(t.to)}
+            •
+            ${formatDate(t.date)}
+          </div>
+
+        </div>
+
+        <div class="transaction-amount amount-transfer">
+          ${money(amount)}
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  const isIncome =
+    t.type === "income";
+
+
+  const icon =
+    isIncome
+      ? getCategoryIcon(t.category)
+      : getCategoryIcon(t.category);
+
+
+  const amountText =
+    (isIncome ? "+" : "-")
+    + money(amount);
+
+
+  return `
+
+    <div class="transaction">
+
+      <div class="transaction-icon">
+        ${icon}
+      </div>
+
+      <div class="transaction-info">
+
+        <div class="transaction-title">
+          ${escapeHTML(t.note || t.category)}
+        </div>
+
+        <div class="transaction-meta">
+          ${escapeHTML(t.category)}
+          •
+          ${paymentIcons[t.payment] || "💳"}
+          ${escapeHTML(t.payment || "")}
+          •
+          ${formatDate(t.date)}
+        </div>
+
+      </div>
+
+      <div class="transaction-amount ${
+        isIncome
+          ? "amount-income"
+          : "amount-expense"
+      }">
+
+        ${amountText}
+
+      </div>
 
     </div>
-
-    <strong>
-     ${money(balance)}
-    </strong>
-
-   </div>
 
   `;
 
- });
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHome(){
+
+  const totals =
+    getTotals();
+
+
+  document.getElementById("balance").textContent =
+    money(totals.balance);
+
+
+  document.getElementById("totalIncome").textContent =
+    money(totals.income);
+
+
+  document.getElementById("totalExpense").textContent =
+    money(totals.expense);
+
+
+  const wallets =
+    getWallets();
+
+
+  const container =
+    document.getElementById("homeWallets");
+
+
+  container.innerHTML = `
+
+    <div class="wallet-grid">
+
+      ${walletCard(
+        "Naqd",
+        "💵",
+        wallets.Naqd
+      )}
+
+      ${walletCard(
+        "Uzcard",
+        "💳",
+        wallets.Uzcard
+      )}
+
+      ${walletCard(
+        "Humo",
+        "💳",
+        wallets.Humo
+      )}
+
+      ${walletCard(
+        "Bank",
+        "🏦",
+        wallets.Bank
+      )}
+
+    </div>
+
+  `;
+
+
+  renderRecent();
 
 }
 
+
+function walletCard(name,icon,value){
+
+  return `
+
+    <div class="wallet">
+
+      <div class="wallet-top">
+
+        <div class="wallet-name">
+
+          <div class="wallet-icon">
+            ${icon}
+          </div>
+
+          ${name}
+
+        </div>
+
+      </div>
+
+      <strong>
+        ${money(value)}
+      </strong>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   RECENT
+========================= */
 
 function renderRecent(){
 
- const container =
-  document.getElementById("recentTransactions");
+  const container =
+    document.getElementById("recentTransactions");
 
- const transactions =
-  data.transactions.slice(0,5);
 
- if(!transactions.length){
+  const transactions =
+    data.transactions.slice(0,7);
+
+
+  if(!transactions.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Hali operatsiyalar yo‘q
+      </div>
+    `;
+
+    return;
+
+  }
+
 
   container.innerHTML =
-   `<div class="empty">
-     Hozircha operatsiyalar yo‘q
-    </div>`;
-
-  return;
-
- }
-
- container.innerHTML =
-  transactions.map(transactionHTML).join("");
+    transactions
+      .map(transactionHTML)
+      .join("");
 
 }
 
 
-function transactionHTML(t, showDelete=false){
-
- const icon =
-  categoryIcons[t.category] || "📦";
-
- const sign =
-  t.type === "income" ? "+" : "-";
-
- const amountClass =
-  t.type === "income"
-   ? "amount-income"
-   : "amount-expense";
-
- const date =
-  new Date(t.date).toLocaleDateString("uz-UZ");
-
- return `
-
-  <div class="transaction">
-
-   <div
-    class="transaction-icon"
-    style="background:${
-      t.type === "income"
-       ? "#eaf8ef"
-       : "#fff0f0"
-    }"
-   >
-    ${icon}
-   </div>
-
-   <div class="transaction-info">
-
-    <div class="transaction-title">
-     ${escapeHTML(t.note || t.category)}
-    </div>
-
-    <div class="transaction-meta">
-     ${t.category} ·
-     ${paymentIcons[t.payment] || "💳"}
-     ${t.payment} · ${date}
-    </div>
-
-   </div>
-
-   <div class="transaction-amount ${amountClass}">
-    ${sign}${money(t.amount)}
-   </div>
-
-   ${
-    showDelete
-     ? `
-       <button
-        class="delete-btn"
-        onclick="deleteTransaction(${t.id})"
-       >
-        🗑
-       </button>
-       `
-     : ""
-   }
-
-  </div>
-
- `;
-
-}
-
-
-/* ================= DATE ================= */
+/* =========================
+   DATE HELPERS
+========================= */
 
 function startOfDay(date){
 
- const d = new Date(date);
+  const d = new Date(date);
 
- d.setHours(0,0,0,0);
+  d.setHours(0,0,0,0);
 
- return d;
+  return d;
 
 }
+
 
 function endOfDay(date){
 
- const d = new Date(date);
+  const d = new Date(date);
 
- d.setHours(23,59,59,999);
+  d.setHours(23,59,59,999);
 
- return d;
+  return d;
 
 }
 
 
+/* HAFTA DUSHANBADAN BOSHLANADI */
+
 function startOfWeek(date){
 
- const d = startOfDay(date);
+  const d = new Date(date);
 
- const day = d.getDay();
+  d.setHours(0,0,0,0);
 
- const diff =
-  day === 0 ? -6 : 1-day;
+  const day = d.getDay();
 
- d.setDate(d.getDate()+diff);
+  const diff =
+    day === 0
+      ? -6
+      : 1 - day;
 
- return d;
+  d.setDate(d.getDate() + diff);
+
+  return d;
 
 }
 
 
 function endOfWeek(date){
 
- const d =
-  startOfWeek(date);
+  const d =
+    startOfWeek(date);
 
- d.setDate(d.getDate()+6);
+  d.setDate(d.getDate() + 6);
 
- return endOfDay(d);
+  d.setHours(23,59,59,999);
+
+  return d;
 
 }
 
 
 function startOfMonth(date){
 
- const d = new Date(date);
+  const d = new Date(date);
 
- d.setDate(1);
+  d.setDate(1);
 
- d.setHours(0,0,0,0);
+  d.setHours(0,0,0,0);
 
- return d;
+  return d;
 
 }
 
 
 function endOfMonth(date){
 
- const d = new Date(date);
+  const d = new Date(date);
 
- d.setMonth(d.getMonth()+1);
+  d.setMonth(d.getMonth()+1,0);
 
- d.setDate(0);
+  d.setHours(23,59,59,999);
 
- return endOfDay(d);
+  return d;
 
 }
 
 
 function startOfYear(date){
 
- const d = new Date(date);
+  const d = new Date(date);
 
- d.setMonth(0,1);
+  d.setMonth(0,1);
 
- d.setHours(0,0,0,0);
+  d.setHours(0,0,0,0);
 
- return d;
+  return d;
 
 }
 
 
 function endOfYear(date){
 
- const d = new Date(date);
+  const d = new Date(date);
 
- d.setMonth(11,31);
+  d.setMonth(11,31);
 
- return endOfDay(d);
+  d.setHours(23,59,59,999);
+
+  return d;
 
 }
 
 
 function getPeriodRange(period){
 
- const now = new Date();
+  const now = new Date();
 
- if(period === "day"){
+
+  if(period === "day"){
+
+    return [
+      startOfDay(now),
+      endOfDay(now)
+    ];
+
+  }
+
+
+  if(period === "week"){
+
+    return [
+      startOfWeek(now),
+      endOfWeek(now)
+    ];
+
+  }
+
+
+  if(period === "month"){
+
+    return [
+      startOfMonth(now),
+      endOfMonth(now)
+    ];
+
+  }
+
 
   return [
-   startOfDay(now),
-   endOfDay(now)
+    startOfYear(now),
+    endOfYear(now)
   ];
-
- }
-
- if(period === "week"){
-
-  return [
-   startOfWeek(now),
-   endOfWeek(now)
-  ];
-
- }
-
- if(period === "month"){
-
-  return [
-   startOfMonth(now),
-   endOfMonth(now)
-  ];
-
- }
-
- return [
-  startOfYear(now),
-  endOfYear(now)
- ];
 
 }
 
+
+/* =========================
+   REPORT TRANSACTIONS
+========================= */
 
 function getReportTransactions(){
 
- const [start,end] =
-  getPeriodRange(reportPeriod);
+  const [
+    start,
+    end
+  ] = getPeriodRange(reportPeriod);
 
- return data.transactions.filter(t => {
 
-  const d = new Date(t.date);
+  return data.transactions.filter(t => {
 
-  return d >= start && d <= end;
+    const date =
+      new Date(t.date);
 
- });
 
-}
-
-
-/* ================= REPORT ================= */
-
-function setReportPeriod(period){
-
- reportPeriod = period;
-
- document.querySelectorAll(".period-tabs button")
-  .forEach(btn =>
-   btn.classList.remove("active")
-  );
-
- const map = {
-  day:"periodDay",
-  week:"periodWeek",
-  month:"periodMonth",
-  year:"periodYear"
- };
-
- document
-  .getElementById(map[period])
-  .classList.add("active");
-
- renderReport();
-
-}
-
-
-function renderReport(){
-
- const transactions =
-  getReportTransactions();
-
- let income = 0;
- let expense = 0;
-
- transactions.forEach(t => {
-
-  if(t.type === "income")
-   income += Number(t.amount)||0;
-
-  if(t.type === "expense")
-   expense += Number(t.amount)||0;
-
- });
-
- document.getElementById("reportIncome").textContent =
-  money(income);
-
- document.getElementById("reportExpense").textContent =
-  money(expense);
-
- document.getElementById("reportBalance").textContent =
-  money(income-expense);
-
- document.getElementById("reportCount").textContent =
-  transactions.length;
-
- renderDayExpenseChart(transactions);
-
- renderCategoryChart(transactions);
-
- renderPaymentChart(transactions);
-
- renderWalletChart(transactions);
-
-}
-
-
-/* ================= DAY CHART ================= */
-
-function renderDayExpenseChart(transactions){
-
- const container =
-  document.getElementById("dayExpenseChart");
-
- let labels = [];
-
- if(reportPeriod === "day"){
-
-  labels = ["Bugun"];
-
- }else if(reportPeriod === "week"){
-
-  labels = ["Du","Se","Cho","Pa","Ju","Sha","Ya"];
-
- }else if(reportPeriod === "month"){
-
-  const days =
-   new Date(
-    new Date().getFullYear(),
-    new Date().getMonth()+1,
-    0
-   ).getDate();
-
-  labels =
-   Array.from(
-    {length:days},
-    (_,i)=>String(i+1)
-   );
-
- }else{
-
-  labels =
-   ["Yan","Fev","Mar","Apr","May","Iyun",
-    "Iyul","Avg","Sen","Okt","Noy","Dek"];
-
- }
-
- let values =
-  new Array(labels.length).fill(0);
-
- transactions.forEach(t => {
-
-  if(t.type !== "expense") return;
-
-  const d = new Date(t.date);
-
-  let index = 0;
-
-  if(reportPeriod === "day"){
-
-   index = 0;
-
-  }else if(reportPeriod === "week"){
-
-   const day = d.getDay();
-
-   index = day === 0 ? 6 : day-1;
-
-  }else if(reportPeriod === "month"){
-
-   index = d.getDate()-1;
-
-  }else{
-
-   index = d.getMonth();
-
-  }
-
-  if(index >= 0 && index < values.length)
-   values[index] += Number(t.amount)||0;
-
- });
-
- const max =
-  Math.max(...values,1);
-
- container.innerHTML =
-  values.map((v,i)=>`
-
-   <div class="day-column">
-
-    <div
-     class="day-bar"
-     style="height:${Math.max(2,(v/max)*110)}px"
-     title="${money(v)}"
-    ></div>
-
-    <div class="day-name">
-     ${labels[i]}
-    </div>
-
-   </div>
-
-  `).join("");
-
-}
-
-
-/* ================= CATEGORY ================= */
-
-function renderCategoryChart(transactions){
-
- const container =
-  document.getElementById("categoryChart");
-
- const totals = {};
-
- transactions.forEach(t => {
-
-  if(t.type !== "expense") return;
-
-  totals[t.category] =
-   (totals[t.category] || 0) +
-   Number(t.amount);
-
- });
-
- const entries =
-  Object.entries(totals)
-   .sort((a,b)=>b[1]-a[1]);
-
- if(!entries.length){
-
-  container.innerHTML =
-   `<div class="empty">Chiqim yo‘q</div>`;
-
-  return;
-
- }
-
- const max =
-  entries[0][1];
-
- container.innerHTML =
-  entries.map(([cat,value])=>`
-
-   <div class="bar-row">
-
-    <div class="bar-label">
-
-     <span>
-      ${categoryIcons[cat] || "📦"} ${cat}
-     </span>
-
-     <span>${money(value)}</span>
-
-    </div>
-
-    <div class="bar">
-     <div
-      class="bar-fill"
-      style="width:${(value/max)*100}%"
-     ></div>
-    </div>
-
-   </div>
-
-  `).join("");
-
-}
-
-
-/* ================= PAYMENT ================= */
-
-function renderPaymentChart(transactions){
-
- const container =
-  document.getElementById("paymentChart");
-
- const totals = {};
-
- transactions.forEach(t => {
-
-  totals[t.payment] =
-   (totals[t.payment] || 0) +
-   Number(t.amount);
-
- });
-
- const entries =
-  Object.entries(totals)
-   .sort((a,b)=>b[1]-a[1]);
-
- if(!entries.length){
-
-  container.innerHTML =
-   `<div class="empty">Ma’lumot yo‘q</div>`;
-
-  return;
-
- }
-
- const max =
-  entries[0][1];
-
- container.innerHTML =
-  entries.map(([payment,value])=>`
-
-   <div class="bar-row">
-
-    <div class="bar-label">
-
-     <span>
-      ${paymentIcons[payment] || "💳"}
-      ${payment}
-     </span>
-
-     <span>${money(value)}</span>
-
-    </div>
-
-    <div class="bar">
-     <div
-      class="bar-fill"
-      style="width:${(value/max)*100}%"
-     ></div>
-    </div>
-
-   </div>
-
-  `).join("");
-
-}
-
-
-/* ================= WALLET CHART ================= */
-
-function renderWalletChart(transactions){
-
- const container =
-  document.getElementById("walletChart");
-
- const totals = {};
-
- transactions.forEach(t => {
-
-  const amount =
-   Number(t.amount)||0;
-
-  if(!totals[t.payment])
-   totals[t.payment]=0;
-
-  if(t.type === "income")
-   totals[t.payment]+=amount;
-  else
-   totals[t.payment]-=amount;
-
- });
-
- const entries =
-  Object.entries(totals);
-
- if(!entries.length){
-
-  container.innerHTML =
-   `<div class="empty">Ma’lumot yo‘q</div>`;
-
-  return;
-
- }
-
- const max =
-  Math.max(...entries.map(x=>Math.abs(x[1])),1);
-
- container.innerHTML =
-  entries.map(([payment,value])=>`
-
-   <div class="bar-row">
-
-    <div class="bar-label">
-
-     <span>
-      ${walletIcons[payment] || "💳"}
-      ${payment}
-     </span>
-
-     <span>${money(value)}</span>
-
-    </div>
-
-    <div class="bar">
-     <div
-      class="bar-fill"
-      style="width:${Math.abs(value)/max*100}%"
-     ></div>
-    </div>
-
-   </div>
-
-  `).join("");
-
-}
-
-
-/* ================= ALL TRANSACTIONS ================= */
-
-function renderAllTransactions(){
-
- const container =
-  document.getElementById("allTransactions");
-
- const search =
-  document.getElementById("searchInput")
-   .value
-   .toLowerCase()
-   .trim();
-
- const transactions =
-  data.transactions.filter(t => {
-
-   if(!search) return true;
-
-   return (
-    String(t.note||"")
-     .toLowerCase()
-     .includes(search)
-    ||
-    String(t.category||"")
-     .toLowerCase()
-     .includes(search)
-    ||
-    String(t.payment||"")
-     .toLowerCase()
-     .includes(search)
-   );
+    return date >= start &&
+           date <= end;
 
   });
 
- if(!transactions.length){
-
-  container.innerHTML =
-   `<div class="empty">
-     Operatsiyalar topilmadi
-    </div>`;
-
-  return;
-
- }
-
- container.innerHTML =
-  transactions.map(t =>
-   transactionHTML(t,true)
-  ).join("");
-
 }
 
 
-function deleteTransaction(id){
+/* =========================
+   REPORT PERIOD
+========================= */
 
- const ok =
-  confirm("Bu operatsiyani o‘chirmoqchimisiz?");
+function setReportPeriod(period){
 
- if(!ok) return;
-
- data.transactions =
-  data.transactions.filter(
-   t => t.id !== id
-  );
-
- saveData();
-
- renderAll();
-
- showToast("Operatsiya o‘chirildi");
-
-}
+  reportPeriod = period;
 
 
-/* ================= NAVIGATION ================= */
+  document
+    .querySelectorAll(".period-btn")
+    .forEach(btn => {
 
-function navigate(pageId){
+      btn.classList.toggle(
+        "active",
+        btn.dataset.period === period
+      );
 
- document.querySelectorAll(".page")
-  .forEach(page =>
-   page.classList.remove("active")
-  );
-
- document
-  .getElementById(pageId)
-  .classList.add("active");
+    });
 
 
- document.querySelectorAll(".nav-btn")
-  .forEach(btn =>
-   btn.classList.remove("active")
-  );
-
-
- const navMap = {
-  homePage:"navHome",
-  reportPage:"navReport",
-  allPage:"navAll",
-  settingsPage:"navSettings"
- };
-
- const nav =
-  document.getElementById(navMap[pageId]);
-
- if(nav)
-  nav.classList.add("active");
-
-
- if(pageId === "homePage")
-  renderHome();
-
- if(pageId === "reportPage")
   renderReport();
 
- if(pageId === "allPage")
-  renderAllTransactions();
+}
+
+
+/* =========================
+   REPORT
+========================= */
+
+function renderReport(){
+
+  const transactions =
+    getReportTransactions();
+
+
+  let income = 0;
+
+  let expense = 0;
+
+
+  transactions.forEach(t => {
+
+    const amount =
+      Number(t.amount) || 0;
+
+
+    if(t.type === "income"){
+
+      income += amount;
+
+    }
+
+    else if(t.type === "expense"){
+
+      expense += amount;
+
+    }
+
+  });
+
+
+  document.getElementById("reportIncome").textContent =
+    money(income);
+
+
+  document.getElementById("reportExpense").textContent =
+    money(expense);
+
+
+  renderDayExpenseChart(transactions);
+
+  renderCategoryChart(transactions);
+
+  renderPaymentChart(transactions);
+
+  renderWalletChart(transactions);
 
 }
 
 
-/* ================= BACKUP ================= */
+/* =========================
+   BAR HTML
+========================= */
 
-function backupData(){
+function makeBar(label,value,max,icon){
 
- const blob =
-  new Blob(
-   [JSON.stringify(data,null,2)],
-   {type:"application/json"}
-  );
+  const percent =
+    max > 0
+      ? Math.max(
+          2,
+          (value / max) * 100
+        )
+      : 0;
 
- const url =
-  URL.createObjectURL(blob);
 
- const a =
-  document.createElement("a");
+  return `
 
- a.href = url;
+    <div class="bar-row">
 
- a.download =
-  "kirim-chiqim-backup.json";
+      <div class="bar-head">
 
- a.click();
+        <span>
+          ${icon || ""} ${escapeHTML(label)}
+        </span>
 
- URL.revokeObjectURL(url);
+        <span>
+          ${money(value)}
+        </span>
 
- showToast("Backup saqlandi ✅");
+      </div>
+
+      <div class="bar-bg">
+
+        <div
+          class="bar"
+          style="width:${percent}%"
+        ></div>
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
 
-/* ================= RESTORE ================= */
+/* =========================
+   DAY EXPENSE CHART
+========================= */
 
-function restoreData(event){
+function renderDayExpenseChart(transactions){
 
- const file =
-  event.target.files[0];
+  const container =
+    document.getElementById("dayExpenseChart");
 
- if(!file) return;
 
- const reader =
-  new FileReader();
+  const expenses =
+    transactions.filter(
+      t => t.type === "expense"
+    );
 
- reader.onload = function(){
 
-  try{
+  if(!expenses.length){
 
-   const restored =
-    JSON.parse(reader.result);
+    container.innerHTML = `
+      <div class="empty">
+        Bu davrda chiqim yo‘q
+      </div>
+    `;
 
-   if(
-    !restored ||
-    !Array.isArray(restored.transactions)
-   ){
-
-    throw new Error();
-
-   }
-
-   data = restored;
-
-   saveData();
-
-   renderAll();
-
-   showToast("Ma’lumotlar tiklandi ✅");
-
-  }catch(e){
-
-   showToast("Fayl noto‘g‘ri");
+    return;
 
   }
 
- };
 
- reader.readAsText(file);
+  const map = {};
+
+
+  expenses.forEach(t => {
+
+    const key =
+      new Date(t.date)
+        .toLocaleDateString("uz-UZ");
+
+
+    map[key] =
+      (map[key] || 0)
+      + Number(t.amount || 0);
+
+  });
+
+
+  const values =
+    Object.values(map);
+
+
+  const max =
+    Math.max(...values,0);
+
+
+  container.innerHTML =
+    Object.entries(map)
+      .map(
+        ([date,value]) =>
+          makeBar(
+            date,
+            value,
+            max,
+            "📅"
+          )
+      )
+      .join("");
 
 }
 
 
-/* ================= CLEAR ================= */
+/* =========================
+   CATEGORY CHART
+========================= */
+
+function renderCategoryChart(transactions){
+
+  const container =
+    document.getElementById("categoryChart");
+
+
+  const map = {};
+
+
+  transactions
+    .filter(
+      t => t.type === "expense"
+    )
+    .forEach(t => {
+
+      map[t.category] =
+        (map[t.category] || 0)
+        + Number(t.amount || 0);
+
+    });
+
+
+  const entries =
+    Object.entries(map)
+      .sort(
+        (a,b) => b[1] - a[1]
+      );
+
+
+  if(!entries.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Chiqim ma'lumotlari yo‘q
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const max =
+    entries[0][1];
+
+
+  container.innerHTML =
+    entries
+      .map(
+        ([category,value]) =>
+          makeBar(
+            category,
+            value,
+            max,
+            getCategoryIcon(category)
+          )
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   PAYMENT CHART
+========================= */
+
+function renderPaymentChart(transactions){
+
+  const container =
+    document.getElementById("paymentChart");
+
+
+  const map = {};
+
+
+  transactions
+    .filter(
+      t => t.type === "expense"
+    )
+    .forEach(t => {
+
+      map[t.payment] =
+        (map[t.payment] || 0)
+        + Number(t.amount || 0);
+
+    });
+
+
+  const entries =
+    Object.entries(map)
+      .sort(
+        (a,b) => b[1] - a[1]
+      );
+
+
+  if(!entries.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        To‘lov ma'lumotlari yo‘q
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const max =
+    entries[0][1];
+
+
+  container.innerHTML =
+    entries
+      .map(
+        ([payment,value]) =>
+          makeBar(
+            payment,
+            value,
+            max,
+            paymentIcons[payment] || "💳"
+          )
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   WALLET CHART
+========================= */
+
+function renderWalletChart(transactions){
+
+  const container =
+    document.getElementById("walletChart");
+
+
+  const map = {
+
+    "Naqd":0,
+    "Uzcard":0,
+    "Humo":0,
+    "Bank":0
+
+  };
+
+
+  transactions.forEach(t => {
+
+    const amount =
+      Number(t.amount) || 0;
+
+
+    if(t.type === "income"){
+
+      if(map[t.payment] !== undefined){
+
+        map[t.payment] += amount;
+
+      }
+
+    }
+
+
+    else if(t.type === "expense"){
+
+      if(map[t.payment] !== undefined){
+
+        map[t.payment] += amount;
+
+      }
+
+    }
+
+
+    /*
+      Transfer reportga kirim/chiqim sifatida
+      qo‘shilmaydi.
+    */
+
+  });
+
+
+  const entries =
+    Object.entries(map);
+
+
+  const max =
+    Math.max(
+      ...entries.map(x => x[1]),
+      0
+    );
+
+
+  container.innerHTML =
+    entries
+      .map(
+        ([wallet,value]) =>
+          makeBar(
+            wallet,
+            value,
+            max,
+            paymentIcons[wallet]
+          )
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   ALL TRANSACTIONS
+========================= */
+
+function renderAllTransactions(){
+
+  const container =
+    document.getElementById("allTransactions");
+
+
+  const search =
+    (
+      document
+        .getElementById("searchInput")
+        .value || ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  let transactions =
+    data.transactions;
+
+
+  if(search){
+
+    transactions =
+      transactions.filter(t => {
+
+        const text = [
+
+          t.note,
+          t.category,
+          t.payment,
+          t.from,
+          t.to
+
+        ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+
+        return text.includes(search);
+
+      });
+
+  }
+
+
+  if(!transactions.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        Operatsiyalar topilmadi
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    transactions
+      .map(t => {
+
+        return transactionHTML(t);
+
+      })
+      .join("");
+
+}
+
+
+/* =========================
+   DELETE TRANSACTION
+========================= */
+
+function deleteTransaction(id){
+
+  data.transactions =
+    data.transactions.filter(
+      t => t.id !== id
+    );
+
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function navigate(page,button){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p => {
+
+      p.classList.remove("active");
+
+    });
+
+
+  document
+    .getElementById(page + "Page")
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  button.classList.add("active");
+
+
+  if(page === "home"){
+
+    renderHome();
+
+  }
+
+
+  if(page === "report"){
+
+    renderReport();
+
+  }
+
+
+  if(page === "all"){
+
+    renderAllTransactions();
+
+  }
+
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function backupData(){
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+
+  a.href = url;
+
+  a.download =
+    "kirim-chiqim-backup.json";
+
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+
+  showToast(
+    "Backup tayyorlandi ✅"
+  );
+
+}
+
+
+/* =========================
+   RESTORE
+========================= */
+
+function restoreData(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload = function(e){
+
+    try{
+
+      const restored =
+        JSON.parse(e.target.result);
+
+
+      if(
+        !restored ||
+        !Array.isArray(
+          restored.transactions
+        )
+      ){
+
+        throw new Error(
+          "Noto‘g‘ri fayl"
+        );
+
+      }
+
+
+      data = restored;
+
+      saveData();
+
+      renderAll();
+
+      showToast(
+        "Ma'lumotlar tiklandi ✅"
+      );
+
+    }
+
+    catch(error){
+
+      showToast(
+        "Backup fayli noto‘g‘ri"
+      );
+
+    }
+
+  };
+
+
+  reader.readAsText(file);
+
+
+  event.target.value = "";
+
+}
+
+
+/* =========================
+   CLEAR DATA
+========================= */
 
 function clearData(){
 
- const ok =
-  confirm(
-   "Barcha kirim va chiqimlarni o‘chirishni tasdiqlaysizmi?"
+  const answer =
+    confirm(
+      "Barcha operatsiyalarni o‘chirishni xohlaysizmi?"
+    );
+
+
+  if(!answer){
+
+    return;
+
+  }
+
+
+  data = {
+
+    transactions:[]
+
+  };
+
+
+  saveData();
+
+  renderAll();
+
+  showToast(
+    "Ma'lumotlar tozalandi"
   );
-
- if(!ok) return;
-
- data = {
-  transactions:[]
- };
-
- saveData();
-
- renderAll();
-
- showToast("Barcha ma’lumotlar o‘chirildi");
 
 }
 
 
-/* ================= THEME ================= */
+/* =========================
+   THEME
+========================= */
 
 function toggleTheme(){
 
- document.body.classList.toggle("dark");
+  document.body.classList.toggle(
+    "dark"
+  );
 
- localStorage.setItem(
-  "kirimTheme",
-  document.body.classList.contains("dark")
-   ? "dark"
-   : "light"
- );
+
+  const isDark =
+    document.body.classList.contains(
+      "dark"
+    );
+
+
+  localStorage.setItem(
+    "kirimChiqimTheme",
+    isDark
+      ? "dark"
+      : "light"
+  );
+
+
+  updateThemeSwitch();
+
+}
+
+
+function updateThemeSwitch(){
+
+  const switchEl =
+    document.getElementById(
+      "themeSwitch"
+    );
+
+
+  const isDark =
+    document.body.classList.contains(
+      "dark"
+    );
+
+
+  switchEl.classList.toggle(
+    "on",
+    isDark
+  );
 
 }
 
 
 function loadTheme(){
 
- if(
-  localStorage.getItem("kirimTheme")
-  === "dark"
- ){
+  const theme =
+    localStorage.getItem(
+      "kirimChiqimTheme"
+    );
 
-  document.body.classList.add("dark");
 
- }
+  if(theme === "dark"){
+
+    document.body.classList.add(
+      "dark"
+    );
+
+  }
+
+
+  updateThemeSwitch();
 
 }
 
 
-/* ================= TOAST ================= */
+/* =========================
+   DATE
+========================= */
+
+function formatDate(date){
+
+  const d =
+    new Date(date);
+
+
+  if(isNaN(d.getTime())){
+
+    return "";
+
+  }
+
+
+  const day =
+    String(
+      d.getDate()
+    ).padStart(2,"0");
+
+
+  const month =
+    String(
+      d.getMonth()+1
+    ).padStart(2,"0");
+
+
+  const year =
+    d.getFullYear();
+
+
+  const hours =
+    String(
+      d.getHours()
+    ).padStart(2,"0");
+
+
+  const minutes =
+    String(
+      d.getMinutes()
+    ).padStart(2,"0");
+
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+
+}
+
+
+/* =========================
+   EXPENSE
+========================= */
+
+function getExpense(){
+
+  return data.transactions
+    .filter(
+      t => t.type === "expense"
+    )
+    .reduce(
+      (sum,t) =>
+        sum + Number(t.amount || 0),
+      0
+    );
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
 
 let toastTimer;
 
+
 function showToast(message){
 
- const toast =
-  document.getElementById("toast");
+  const toast =
+    document.getElementById(
+      "toast"
+    );
 
- toast.textContent = message;
 
- toast.classList.add("show");
+  toast.textContent =
+    message;
 
- clearTimeout(toastTimer);
 
- toastTimer =
-  setTimeout(
-   ()=>toast.classList.remove("show"),
-   2200
+  toast.classList.add(
+    "show"
   );
 
+
+  clearTimeout(toastTimer);
+
+
+  toastTimer =
+    setTimeout(
+      () => {
+
+        toast.classList.remove(
+          "show"
+        );
+
+      },
+      2200
+    );
+
 }
 
 
-/* ================= ESCAPE ================= */
+/* =========================
+   ESCAPE HTML
+========================= */
 
-function escapeHTML(text){
+function escapeHTML(value){
 
- return String(text)
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+  return String(value ?? "")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
-/* ================= RENDER ALL ================= */
+/* =========================
+   RENDER ALL
+========================= */
 
 function renderAll(){
 
- renderHome();
+  renderHome();
 
- renderReport();
+  renderReport();
 
- renderAllTransactions();
+  renderAllTransactions();
 
 }
 
 
-/* ================= START ================= */
+/* =========================
+   INIT
+========================= */
 
 loadData();
 
 loadTheme();
 
-updateCategories();
-
-setReportPeriod("month");
+setType("expense");
 
 renderAll();
 
